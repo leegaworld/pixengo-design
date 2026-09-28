@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>11 관제 · 기사 반납 → 재배정 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>11 관제 · 기사 반납 → 재배정</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Overdue.html">← 10 정산 · 미수</a> · <a href="CallsTable.html">12 콜카드 · 표 보기 · 일괄 처리 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a class="on" href="Main.html" aria-current="page">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="flex-grow: 1"><div class="pb" style="gap: 16px">
+<nav aria-label="예외 필터" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><a class="fb" href="Main.html">전체 9</a><a class="fb" href="Main.html">미배차 위험 <b style="color: #B42318">1</b></a><a class="fb" href="Main.html">도착 확인 2</a><a class="fb" href="Delay.html">시각 변경 2</a><a class="fb" href="NoShow.html">노쇼 신청 1</a><a class="fb on" href="Return.html" aria-current="true">기사 반납 1</a><a class="fb" href="Notify.html">연락 실패 1</a><a class="fb" href="Balance.html">잔액 청구 1</a><a class="fb" href="Main.html">결제대기 1</a><span style="flex-grow: 1"></span><span class="cap">오늘 픽업 18<span class="sep" aria-hidden="true">·</span>T1 11<span class="sep" aria-hidden="true">·</span>T2 7<span class="sep" aria-hidden="true">·</span>13:20 기준</span></nav>
+<section aria-labelledby="rt-h" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 id="rt-h">기사 반납 1</h2><span class="cap">반납 즉시 앱 재공개 · 운영자 배정 병행</span></div>
+<table><thead><tr><th>반납</th><th>도착 예정</th><th>편명</th><th>콜카드</th><th>반납 기사</th><th>사유</th><th class="r">도착까지</th></tr></thead><tbody>
+<tr class="sel"><td>13:14</td><td>16:30</td><td style="font-weight: 500">KE856 <span class="cap">T2</span></td><td style="font-weight: 600">PX-0925-027</td><td>윤○○</td><td>개인 사정</td><td class="r" style="font-weight: 600">3시간 16분</td></tr>
+</tbody></table>
+</section>
+<section aria-labelledby="rk-h" style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 id="rk-h">추천 순서</h2><a class="btn gh sm" href="Settings.html">기준 변경</a></div>
+<ol style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #E7E3DE">
+<li class="row"><b style="width: 20px">1</b><span style="flex-grow: 1">픽업 시각 전후 운행이 겹치지 않음</span><span class="cap">필수 조건</span></li>
+<li class="row"><b style="width: 20px">2</b><span style="flex-grow: 1">차종이 예약 차종 이상</span><span class="cap">필수 조건</span></li>
+<li class="row"><b style="width: 20px">3</b><span style="flex-grow: 1">대기 위치가 픽업 터미널에 가까움</span><span class="cap">정렬</span></li>
+<li class="row"><b style="width: 20px">4</b><span style="flex-grow: 1">오늘 배정 수가 적음</span><span class="cap">정렬</span></li>
+<li class="row"><b style="width: 20px">5</b><span style="flex-grow: 1">최근 30일 수락률 · 페널티</span><span class="cap">정렬</span></li>
+</ol>
+</section>
+<section aria-labelledby="rf-h" style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 id="rf-h">재배정 실패 시</h2><span class="cap">후보 없음 · 기사 거절 · 시간 초과</span></div>
+<div class="row"><b style="width: 180px">예외 유지</b><span style="flex-grow: 1">"재배정 실패"로 관제에 남김 · 담당자 · 다음 조치 · 마감</span></div>
+<div class="row" style="color: #8A8580"><b style="width: 180px">미배차 확정</b><span style="flex-grow: 1; color: #716C67">예약금 전액 환불 · 전환 시점 [결정 필요 D-08a]</span><button class="btn sm" type="button" disabled>미배차 확정</button></div>
+<div class="row" style="color: #8A8580"><b style="width: 180px">기사 사유 종료</b><span style="flex-grow: 1; color: #716C67">환불 + 페널티 · 미배차와의 경계 [결정 필요 D-08a]</span><button class="btn sm" type="button" disabled>기사 사유 종료</button></div>
+<span class="cap">재배정할 수 있는 동안에는 콜을 종료하지 않습니다. 종료할 때는 결과와 게스트 안내를 먼저 보여줍니다.</span>
+</section>
+</div></div><aside class="pane bl" style="width: 480px; flex-shrink: 0" aria-label="반납 처리">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0925-027</h2><span>배차대기</span><span class="bdg warn">기사 반납</span></div><a class="btn gh sm" href="Calls.html">콜카드</a></div>
+<div class="pb">
+<dl class="kv">
+<dt>도착</dt><dd>KE856 → T2 · 16:30 예정 · 잠실 · 중형</dd>
+<dt>반납</dt><dd>윤○○ · 13:14 · 개인 사정 (기사 앱)</dd>
+<dt>페널티</dt><dd>기준 미정 · 기사 책임 판정 후 별도 기록</dd>
+</dl>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px"><legend style="padding: 0; margin-bottom: 8px"><h3>다시 배정할 기사</h3></legend>
+<div style="border-top: 1px solid #E7E3DE"><label style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px; border-bottom: 1px solid #E7E3DE; background: #FFF6D9;"><input type="radio" name="rd" checked><span style="display: flex; flex-direction: column; flex-grow: 1"><b style="font-weight: 600">서○○</b><span style="font-size: 12px; color: #716C67;">K5 · 강서 대기</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; color: #716C67;"><span>1순위</span><span>오늘 0건 · 수락 91% · 페널티 0</span></span></label><label style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px; border-bottom: 1px solid #E7E3DE;"><input type="radio" name="rd"><span style="display: flex; flex-direction: column; flex-grow: 1"><b style="font-weight: 600">오○○</b><span style="font-size: 12px; color: #716C67;">쏘나타 · 인천 중구 대기</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; color: #716C67;"><span>2순위</span><span>오늘 0건 · 수락 84% · 페널티 검토 1</span></span></label><label style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px; border-bottom: 1px solid #E7E3DE; color: #8A8580;"><input type="radio" name="rd" disabled><span style="display: flex; flex-direction: column; flex-grow: 1"><b style="font-weight: 600">김○○</b><span style="font-size: 12px; color: #716C67">쏘나타 · 15:40 픽업 운행 예정</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; color: #716C67"><span>제외</span><span>16:30 전 복귀 불가</span></span></label></div></fieldset>
+<section aria-labelledby="rck-h" style="display: flex; flex-direction: column; gap: 2px"><h3 id="rck-h">배정 전 확인 · 서○○</h3>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">승인 기사 · 서류 유효</span></div>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">수용: 게스트 2명·캐리어 [n] ≤ K5 4명·캐리어 [n]</span></div>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">일정: 16:30 전후 [n]시간 다른 운행 없음</span></div>
+<label class="row" style="height: 32px"><input type="checkbox"><span style="flex-grow: 1">기사 수락 확인 (통화 또는 앱 수락)</span></label>
+</section>
+<label class="f">배정 사유<textarea rows="1" placeholder="예: 기사 반납, 추천 1순위 통화 확인"></textarea></label>
+<label style="display: flex; align-items: center; gap: 8px; font-size: 13px"><input type="checkbox">윤○○ 페널티 기록 <span class="cap">기준 미정 · 기본 해제</span></label>
+</div>
+<div class="pf"><span class="cap" style="flex-grow: 1">게스트·호스트에게 기사 변경 안내</span><button class="btn pri" type="button" disabled title="기사 수락 확인 후 가능 · 서버가 제출 시 다시 검증">서○○ 기사로 재배정</button></div>
+</aside></div>
+
+</div>
+</div>
+
+</body>
+</html>

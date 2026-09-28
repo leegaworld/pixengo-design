@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>03 새 예약 · Sheet · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>03 새 예약 · Sheet</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Calls.html">← 02 콜카드 · 큐 + 상세</a> · <a href="Drivers.html">04 드라이버 심사 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+
+<div style="position: absolute; inset: 0"><div inert aria-hidden="true"><div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a class="on" href="Main.html" aria-current="page">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="flex-grow: 1">
+<div class="pb" style="gap: 16px"><nav aria-label="예외 필터" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><a class="fb on" href="Main.html" aria-current="true">전체 9</a><a class="fb" href="Main.html">미배차 위험 <b style="color: #B42318">1</b></a><a class="fb" href="Main.html">도착 확인 2</a><a class="fb" href="Delay.html">시각 변경 2</a><a class="fb" href="NoShow.html">노쇼 신청 1</a><a class="fb" href="Return.html">기사 반납 1</a><a class="fb" href="Notify.html">연락 실패 1</a><a class="fb" href="Balance.html">잔액 청구 1</a><a class="fb" href="Main.html">결제대기 1</a><span style="flex-grow: 1"></span><span class="cap">오늘 픽업 18<span class="sep" aria-hidden="true">·</span>T1 11<span class="sep" aria-hidden="true">·</span>T2 7<span class="sep" aria-hidden="true">·</span>13:20 기준</span></nav><div class="alert" role="alert"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg><span style="flex-grow: 1"><b>도착편 API 13:05 이후 응답 없음 (15분).</b> 마지막 성공 수신 13:05. 노쇼 자동판정 보류 — 착륙 예정이 지난 CA123은 직접 확인하세요.</span><button class="btn sm" type="button">연동 상태</button></div><section aria-labelledby="tl-h" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center"><div style="display: flex; align-items: center; gap: 12px"><h2 id="tl-h">오늘 도착</h2><div class="seg" role="group" aria-label="보기 방식"><button class="sg on" type="button" aria-pressed="true" data-set-view="timeline">타임라인</button><button class="sg" type="button" aria-pressed="false" data-set-view="list">목록</button></div></div><span class="cap">인천공항공사 도착편 · 13:05 갱신</span></div>
+<div data-view="timeline" style="display: contents">
+<div style="position: relative; padding-top: 20px">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 20px"><span class="cap" style="position: absolute; left: 40px; top: 0; width: 32px; text-align: center">12:00</span><span class="cap" style="position: absolute; left: 187px; top: 0; width: 32px; text-align: center">13:00</span><span class="cap" style="position: absolute; left: 333px; top: 0; width: 32px; text-align: center">14:00</span><span class="cap" style="position: absolute; left: 480px; top: 0; width: 32px; text-align: center">15:00</span><span class="cap" style="position: absolute; left: 627px; top: 0; width: 32px; text-align: center">16:00</span><span class="cap" style="position: absolute; left: 773px; top: 0; width: 32px; text-align: center">17:00</span><span class="cap" style="position: absolute; left: 920px; top: 0; width: 32px; text-align: center">18:00</span></div>
+<span style="position: absolute; left: 56px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 203px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 349px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 496px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 643px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 789px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span><span style="position: absolute; left: 936px; top: 20px; bottom: 0; width: 1px; background: #E7E3DE"></span>
+<span aria-hidden="true" style="position: absolute; left: 252px; top: 16px; bottom: 0; width: 2px; background: #F2B100"></span>
+<span class="cap" style="position: absolute; left: 258px; top: 20px; color: #2B2928; font-weight: 600">13:20</span>
+<div style="border-top: 1px solid #E7E3DE"><div style="position: relative; height: 112px; border-bottom: 1px solid #E7E3DE">
+<span style="position: absolute; left: 0; top: 8px; font-size: 12px; font-weight: 600">T1</span>
+<button type="button" aria-pressed="false" aria-label="12:05 MU5033 PX-0925-003 박○○ · 하차" style="position: absolute; left: 68px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E7E3DE"><b>12:05 MU5033</b><br>박○○ · 하차</button><button type="button" aria-pressed="false" aria-label="13:15 CA123 PX-0925-009 정○○ · 확인 필요" style="position: absolute; left: 239px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFF6D9; box-shadow: inset 0 0 0 1px #F2B100"><b>13:15 CA123</b><br>정○○ · 확인 필요</button><button type="button" aria-pressed="false" aria-label="14:15 OZ334 PX-0925-011 최○○ · 지연 25분, 원래 13:50" style="position: absolute; left: 386px; top: 60px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFF6D9; box-shadow: inset 0 0 0 1px #F2B100"><b>14:15 OZ334</b><br>최○○ · +25분</button><button type="button" aria-pressed="true" aria-label="14:20 MU5041 PX-0925-014 미배차" style="position: absolute; left: 398px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFFFFF; box-shadow: inset 0 0 0 2px #B42318; outline: 2px solid #3A3737; outline-offset: 2px"><b>14:20 MU5041</b><br>미배차</button><button type="button" aria-pressed="false" aria-label="15:40 MU5045 PX-0925-032 김○○" style="position: absolute; left: 594px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #F4F1ED"><b>15:40 MU5045</b><br>김○○</button><button type="button" aria-pressed="false" aria-label="16:55 MU5051 PX-0925-030 배차대기, 15분 조기 도착, 원래 17:10" style="position: absolute; left: 777px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #F4F1ED"><b>16:55 MU5051</b><br>배차대기 · −15분</button>
+</div><div style="position: relative; height: 60px; border-bottom: 1px solid #E7E3DE">
+<span style="position: absolute; left: 0; top: 8px; font-size: 12px; font-weight: 600">T2</span>
+<button type="button" aria-pressed="false" aria-label="12:40 KE894 PX-0925-006 이○○ · 탑승" style="position: absolute; left: 154px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E7E3DE"><b>12:40 KE894</b><br>이○○ · 탑승</button><button type="button" aria-pressed="false" aria-label="15:05 CZ371 PX-0925-021 결제대기" style="position: absolute; left: 508px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #F4F1ED"><b>15:05 CZ371</b><br>결제대기</button><button type="button" aria-pressed="false" aria-label="16:30 KE856 PX-0925-027 기사 반납, 재배정 대기" style="position: absolute; left: 716px; top: 8px; width: 84px; height: 44px; border: 0; border-radius: 6px; padding: 4px 8px; box-sizing: border-box; text-align: left; font: inherit; font-size: 12px; line-height: 1.35; color: #2B2928; cursor: pointer; background: #FFF6D9; box-shadow: inset 0 0 0 1px #F2B100"><b>16:30 KE856</b><br>반납 · 재배정</button>
+</div></div>
+</div>
+</div>
+<div data-view="list" style="display: contents" hidden>
+<div style="display: flex; gap: 8px; align-items: center"><select aria-label="터미널" style="width: 120px; height: 32px"><option>터미널 전체</option><option>T1</option><option>T2</option></select><select aria-label="정렬" style="width: 140px; height: 32px"><option>도착 시각 순</option><option>긴급도 순</option></select><span style="flex-grow: 1"></span><span class="cap">9건 · 12:00–18:00</span></div>
+<table><thead><tr><th>도착</th><th>편명</th><th>터미널</th><th>운항</th><th>콜카드</th><th>게스트</th><th>기사</th><th>상태</th></tr></thead><tbody><tr><td>12:05</td><td style="font-weight: 500">MU5033</td><td>T1</td><td>착륙</td><td style="font-weight: 600">PX-0925-003</td><td>陈静</td><td>박○○</td><td>하차</td></tr><tr><td>12:40</td><td style="font-weight: 500">KE894</td><td>T2</td><td>착륙</td><td style="font-weight: 600">PX-0925-006</td><td>刘洋 외 3</td><td>이○○</td><td>탑승</td></tr><tr><td>13:15</td><td style="font-weight: 500">CA123</td><td>T1</td><td><span class="bdg warn">확인 필요</span></td><td style="font-weight: 600">PX-0925-009</td><td>李娜</td><td>정○○</td><td>픽업대기</td></tr><tr><td>14:15</td><td style="font-weight: 500">OZ334</td><td>T1</td><td><a href="Delay.html">+25분 (예정 13:50)</a></td><td style="font-weight: 600">PX-0925-011</td><td>赵磊</td><td>최○○</td><td>픽업대기</td></tr><tr class="sel"><td>14:20</td><td style="font-weight: 500">MU5041</td><td>T1</td><td>예정</td><td style="font-weight: 600">PX-0925-014</td><td>王伟 외 2</td><td>—</td><td><span class="bdg risk">미배차 위험</span></td></tr><tr><td>15:05</td><td style="font-weight: 500">CZ371</td><td>T2</td><td>예정</td><td style="font-weight: 600">PX-0925-021</td><td>张敏 외 1</td><td>—</td><td>결제대기</td></tr><tr><td>15:40</td><td style="font-weight: 500">MU5045</td><td>T1</td><td>예정</td><td style="font-weight: 600">PX-0925-032</td><td>孙丽</td><td>김○○</td><td>배차완료</td></tr><tr><td>16:30</td><td style="font-weight: 500">KE856</td><td>T2</td><td>예정</td><td style="font-weight: 600">PX-0925-027</td><td>吴芳 외 1</td><td>— <span class="cap">윤○○ 반납</span></td><td><a href="Return.html"><span class="bdg warn">기사 반납</span></a></td></tr><tr><td>16:55</td><td style="font-weight: 500">MU5051</td><td>T1</td><td><a href="Delay.html">−15분 (예정 17:10)</a></td><td style="font-weight: 600">PX-0925-030</td><td>杨帆 외 1</td><td>—</td><td>배차대기</td></tr></tbody></table>
+<span class="cap">건수가 많은 날은 목록이 기본입니다. 필터와 선택은 두 보기가 공유합니다.</span>
+</div>
+</section><div data-view="timeline" style="display: contents"><section aria-labelledby="up-h" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="up-h">다음 도착</h2>
+<table><thead><tr><th>최신 도착 예상</th><th>편명</th><th>콜카드</th><th>게스트</th><th>목적지</th><th>기사</th><th>상태</th></tr></thead><tbody><tr><td>14:15</td><td>OZ334 T1</td><td style="font-weight: 600">PX-0925-011</td><td>赵磊</td><td>홍대</td><td>최○○</td><td><a href="Delay.html"><span class="bdg warn">시각 변경</span></a></td></tr><tr class="sel"><td>14:20</td><td>MU5041 T1</td><td style="font-weight: 600">PX-0925-014</td><td>王伟 외 2</td><td>명동</td><td>—</td><td><span class="bdg risk">미배차 위험</span></td></tr><tr><td>15:05</td><td>CZ371 T2</td><td style="font-weight: 600">PX-0925-021</td><td>张敏 외 1</td><td>강남</td><td>—</td><td>결제대기</td></tr><tr><td>15:40</td><td>MU5045 T1</td><td style="font-weight: 600">PX-0925-032</td><td>孙丽</td><td>종로</td><td>김○○</td><td>배차완료</td></tr><tr><td>16:30</td><td>KE856 T2</td><td style="font-weight: 600">PX-0925-027</td><td>吴芳 외 1</td><td>잠실</td><td>—</td><td><a href="Return.html"><span class="bdg warn">기사 반납</span></a></td></tr><tr><td>16:55</td><td>MU5051 T1</td><td style="font-weight: 600">PX-0925-030</td><td>杨帆 외 1</td><td>홍대</td><td>—</td><td>배차대기</td></tr></tbody></table>
+</section></div></div>
+</div><aside class="pane bl" style="width: 480px; flex-shrink: 0" aria-label="선택한 콜">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0925-014</h2><span>배차대기</span><span class="bdg risk">도착 60분 전 · 미배차</span></div><a class="btn gh sm" href="Calls.html">콜카드</a></div>
+<div class="pb">
+<dl class="kv">
+<dt>도착</dt><dd>MU5041 상하이 푸동 → T1 · 14:20 예정</dd>
+<dt>픽업 목표</dt><dd>14:20 + [입국 소요 분]</dd>
+<dt>게스트</dt><dd>王伟 외 2 · 캐리어 2 · 호스트 대행</dd>
+<dt>목적지</dt><dd>중구 명동 [호텔명] · 중형</dd>
+<dt>금액</dt><dd>예상 85,430원 · 예약금 25,629원 승인</dd>
+<dt>배차</dt><dd>앱 공개 6시간 경과 · 수락 없음</dd>
+</dl>
+<section aria-labelledby="cd-h" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h3 id="cd-h">배정할 기사</h3><a class="btn gh sm" href="Return.html">추천 순서</a></div>
+<table style="font-size: 12px"><thead><tr><th style="width: 28px; padding-right: 0"><span style="position: absolute; left: -9999px">선택</span></th><th>기사</th><th>차량·정원</th><th>대기</th><th class="r">오늘</th><th class="r">수락</th><th class="r">페널티</th></tr></thead>
+<tbody><tr class="sel"><td style="width: 28px; padding-right: 0"><input type="radio" name="drv" aria-label="김○○ 선택" checked></td><td style="font-weight: 600">김○○</td><td>쏘나타 · 4명</td><td>공항 인근</td><td class="r">1</td><td class="r">96%</td><td class="r">0</td></tr><tr><td style="width: 28px; padding-right: 0"><input type="radio" name="drv" aria-label="서○○ 선택"></td><td style="font-weight: 600">서○○</td><td>K5 · 4명</td><td>강서</td><td class="r">0</td><td class="r">91%</td><td class="r">0</td></tr><tr><td style="width: 28px; padding-right: 0"><input type="radio" name="drv" aria-label="오○○ 선택"></td><td style="font-weight: 600">오○○</td><td>쏘나타 · 4명</td><td>인천 중구</td><td class="r">0</td><td class="r">84%</td><td class="r">검토 1</td></tr><tr style="color: #8A8580"><td style="width: 28px; padding-right: 0"><input type="radio" name="drv" aria-label="정○○ 선택" disabled></td><td style="font-weight: 600">정○○<br><span style="font-size: 12px; color: #716C67">13:15 픽업과 겹침</span></td><td>그랜저 · 4명</td><td>운행 중</td><td class="r">2</td><td class="r">98%</td><td class="r">0</td></tr></tbody></table>
+</section>
+<section aria-labelledby="ck-h" style="display: flex; flex-direction: column; gap: 2px"><h3 id="ck-h">배정 전 확인 · 김○○</h3>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">승인 기사 · 서류 유효</span></div>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">수용: 게스트 3명·캐리어 2 ≤ 쏘나타 4명·캐리어 [n]</span></div>
+<div class="row" style="height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="flex-grow: 1">일정: 14:20 전후 [n]시간 다른 운행 없음</span></div>
+<label class="row" style="height: 32px"><input type="checkbox" checked><span style="flex-grow: 1">기사 수락 확인 (통화 13:18, 운영자)</span></label>
+<span class="cap">알림 발송 결과는 배정 후 이 자리에 표시됩니다.</span>
+</section>
+<label class="f">배정 사유 *<textarea rows="1" placeholder="예: 도착 3시간 전까지 미수락, 통화로 수락 확인"></textarea></label>
+</div>
+<div class="pf"><span class="cap" style="flex-grow: 1">배정 시 기사 앱 푸시 · 게스트·호스트 안내</span><button class="btn pri" type="button">김○○ 기사로 배정</button></div>
+</aside></div>
+
+</div></div></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(43, 41, 40, 0.4)"></div>
+<aside role="dialog" aria-modal="true" aria-labelledby="bk-h" style="position: absolute; top: 0; right: 0; width: 640px; height: 100%; background: #FFFFFF; box-shadow: 0 4px 16px rgba(43, 41, 40, 0.12); display: flex; flex-direction: column; font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 13px; color: #2B2928">
+<div class="ph" style="height: 56px"><h2 id="bk-h" style="font-size: 18px">새 예약</h2><a class="btn gh sm" href="Main.html" aria-label="닫기"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></a></div>
+<div class="pb" style="gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px"><h3>접수 경로</h3>
+<div class="seg" role="radiogroup" aria-label="접수 경로"><button class="sg on" type="button" role="radio" aria-checked="true">채널톡</button><button class="sg" type="button" role="radio" aria-checked="false">호스트 요청</button><button class="sg" type="button" role="radio" aria-checked="false">전화</button><button class="sg" type="button" role="radio" aria-checked="false">기타</button></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><h3>도착편</h3>
+<div style="display: flex; gap: 8px; align-items: flex-end">
+<label class="f" style="width: 160px">도착일 *<input type="text" value="2026.09.25"></label>
+<label class="f" style="width: 160px">편명 *<input type="text" value="CZ371"></label>
+<button class="btn" type="button">조회</button></div>
+<div style="display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span><b>CZ371</b> 광저우 바이윈 → 인천 <b>T2</b> · 18:40 예정</span></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><div style="display: flex; justify-content: space-between; align-items: baseline"><h3>게스트</h3><span class="cap">채널톡·전화 접수: 운영자가 입력, 입력 주체 기록 · 호스트 요청: 이 칸 비활성, 게스트가 결제 페이지에서 입력</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<label class="f">이름 (여권 영문) *<input type="text" value="ZHANG MIN"></label>
+<label class="f">연락처 (WeChat 또는 휴대폰) *<input type="text" value="zhangmin_88"></label>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<label class="f">국적<select><option>중국 본토</option></select></label>
+<label class="f">성인<input type="number" value="2"></label>
+<label class="f">아동<input type="number" value="0"></label>
+<label class="f">캐리어<input type="number" value="2"></label>
+</div></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><h3>목적지 · 차량</h3>
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px">
+<label class="f">목적지 * <span class="cap" style="font-weight: 400">자체 호텔DB → 네이버 → 구글</span><input type="search" value="강남 [호텔명]"></label>
+<label class="f">차량<select><option>중형</option><option>대형</option></select></label>
+</div>
+<label class="f">운영 메모<textarea rows="2">채널톡 #[번호] · 유모차 1개 문의</textarea></label></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><h3>결제링크 보내기</h3>
+<select aria-label="발송 경로"><option>채널톡으로 게스트에게</option><option>알림톡으로 호스트에게</option><option>링크만 복사</option></select>
+<span class="cap">미결제 시 [유효 시간] 후 만료</span></div>
+</div>
+<div class="pf" style="justify-content: space-between">
+<div style="display: flex; flex-direction: column"><span>예상총액 <b>90,995원</b><span class="sep">·</span>지금 결제 예약금 <b class="hl" style="font-size: 16px">27,299원</b></span><span class="cap">운임 81,900 + 서비스료 9,095 · 요금정책 v3</span></div>
+<div style="display: flex; gap: 8px"><button class="btn gh" type="button">견적 저장</button><button class="btn pri" type="button">생성 · 링크 발송</button></div>
+</div>
+</aside>
+</div>
+</div>
+
+</body>
+</html>

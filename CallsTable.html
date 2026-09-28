@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>12 콜카드 · 표 보기 · 일괄 처리 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>12 콜카드 · 표 보기 · 일괄 처리</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Return.html">← 11 관제 · 기사 반납 → 재배정</a> · <a href="Notify.html">13 콜카드 · 알림 발송 · 템플릿 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a class="on" href="Calls.html" aria-current="page">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="flex-grow: 1">
+<div class="ph"><h2>콜카드 <span class="cap" style="font-size: 13px; font-weight: 400">128</span></h2><div class="seg" role="tablist" aria-label="보기 방식"><a class="sg" href="Calls.html" role="tab" aria-selected="false">분할</a><a class="sg on" href="CallsTable.html" role="tab" aria-selected="true">표</a></div></div>
+<div class="pb" style="gap: 12px">
+<div style="display: flex; gap: 8px; align-items: center">
+<input type="search" aria-label="콜카드 검색" placeholder="ID, 게스트, 편명" style="width: 240px">
+<select aria-label="상태" style="width: 140px"><option>상태 전체</option><option>예외만</option></select>
+<input type="text" aria-label="픽업 기간" value="2026.09.23 – 09.25" style="width: 180px">
+<span style="flex-grow: 1"></span>
+<button class="btn sm" type="button" aria-expanded="true" aria-haspopup="dialog">열 설정</button>
+<button class="btn gh sm" type="button">내보내기</button>
+</div>
+<div role="region" aria-label="일괄 처리" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 6px; background: #F4F1ED">
+<b>2건 선택</b><span class="cap">현재 페이지 기준</span><button class="btn gh sm" type="button">검색 결과 128건 모두 선택</button><span class="sep">·</span>
+<button class="btn sm" type="button">메모 추가</button><button class="btn sm" type="button">알림 재발송</button><button class="btn sm" type="button">배정 추천 보기</button>
+<span style="flex-grow: 1"></span><button class="btn gh sm" type="button">선택 해제</button>
+</div>
+<span class="cap">일괄 알림은 발송 전 행마다 상태·수신자·템플릿을 검사하고, 대상 수·언어·문안·중복 여부를 미리 보여줍니다. 종료된 콜(예: PX-0924-018 미배차 환불 완료)은 제외 사유와 함께 표시되고 발송되지 않습니다.</span>
+<table><thead><tr><th style="width: 36px"><input type="checkbox" aria-label="전체 선택"></th><th>콜카드</th><th>픽업</th><th>편명</th><th>게스트</th><th class="r">인원</th><th>목적지</th><th>채널</th><th>기사</th><th class="r">예상총액(원)</th><th class="r">예약금</th><th class="r">잔액</th><th>상태</th></tr></thead>
+<tbody><tr class="sel"><td><input type="checkbox" aria-label="PX-0925-030 선택" checked></td><td style="font-weight: 600">PX-0925-030</td><td>09.25 16:55</td><td>MU5051 <span class="cap">T1</span></td><td>杨帆 외 1</td><td class="r">2</td><td>홍대</td><td>게스트</td><td>—</td><td class="r">76,610</td><td class="r">22,983</td><td class="r">확정 전</td><td>배차대기</td></tr><tr><td><input type="checkbox" aria-label="PX-0925-032 선택"></td><td style="font-weight: 600">PX-0925-032</td><td>09.25 15:40</td><td>MU5045 <span class="cap">T1</span></td><td>孙丽</td><td class="r">1</td><td>종로</td><td>게스트</td><td>김○○</td><td class="r">81,020</td><td class="r">24,306</td><td class="r">확정 전</td><td>배차완료</td></tr><tr><td><input type="checkbox" aria-label="PX-0925-021 선택"></td><td style="font-weight: 600">PX-0925-021</td><td>09.25 15:05</td><td>CZ371 <span class="cap">T2</span></td><td>张敏 외 1</td><td class="r">2</td><td>강남</td><td>대행</td><td>—</td><td class="r">90,995</td><td class="r">—</td><td class="r">—</td><td>결제대기</td></tr><tr class="sel"><td><input type="checkbox" aria-label="PX-0925-014 선택" checked></td><td style="font-weight: 600">PX-0925-014</td><td>09.25 14:20</td><td>MU5041 <span class="cap">T1</span></td><td>王伟 외 2</td><td class="r">3</td><td>명동</td><td>호스트</td><td>—</td><td class="r">85,430</td><td class="r">25,629</td><td class="r">확정 전</td><td><span class="bdg risk">미배차 위험</span></td></tr><tr><td><input type="checkbox" aria-label="PX-0925-009 선택"></td><td style="font-weight: 600">PX-0925-009</td><td>09.25 13:15</td><td>CA123 <span class="cap">T1</span></td><td>李娜</td><td class="r">1</td><td>홍대</td><td>게스트</td><td>정○○</td><td class="r">76,610</td><td class="r">22,983</td><td class="r">확정 전</td><td>픽업대기</td></tr><tr><td><input type="checkbox" aria-label="PX-0925-006 선택"></td><td style="font-weight: 600">PX-0925-006</td><td>09.25 12:40</td><td>KE894 <span class="cap">T2</span></td><td>刘洋 외 3</td><td class="r">4</td><td>잠실</td><td>게스트</td><td>이○○</td><td class="r">104,330</td><td class="r">31,299</td><td class="r">확정 전</td><td>탑승</td></tr><tr><td><input type="checkbox" aria-label="PX-0925-003 선택"></td><td style="font-weight: 600">PX-0925-003</td><td>09.25 12:05</td><td>MU5033 <span class="cap">T1</span></td><td>陈静</td><td class="r">1</td><td>종로</td><td>호스트</td><td>박○○</td><td class="r">81,020</td><td class="r">24,306</td><td class="r">청구 중</td><td>잔액결제대기</td></tr><tr><td><input type="checkbox" aria-label="PX-0924-031 선택"></td><td style="font-weight: 600">PX-0924-031</td><td>09.24 21:10</td><td>MU5051 <span class="cap">T1</span></td><td>赵磊</td><td class="r">2</td><td>명동</td><td>게스트</td><td>김○○</td><td class="r">85,430</td><td class="r">25,629</td><td class="r">59,801 미수</td><td><span class="bdg risk">미수 · 미분류</span></td></tr><tr><td><input type="checkbox" aria-label="PX-0924-027 선택"></td><td style="font-weight: 600">PX-0924-027</td><td>09.24 19:30</td><td>OZ334 <span class="cap">T1</span></td><td>黄丽</td><td class="r">1</td><td>홍대</td><td>호스트</td><td>최○○</td><td class="r">99,105</td><td class="r">22,983</td><td class="r">76,122</td><td><span class="bdg warn">검수</span></td></tr><tr><td><input type="checkbox" aria-label="PX-0924-018 선택"></td><td style="font-weight: 600">PX-0924-018</td><td>09.24 15:05</td><td>CA131 <span class="cap">T2</span></td><td>周杰 외 2</td><td class="r">3</td><td>강남</td><td>게스트</td><td>—</td><td class="r">90,995</td><td class="r">환불</td><td class="r">—</td><td><span class="bdg risk">미배차</span></td></tr><tr><td><input type="checkbox" aria-label="PX-0924-011 선택"></td><td style="font-weight: 600">PX-0924-011</td><td>09.24 11:50</td><td>MU5027 <span class="cap">T1</span></td><td>吴芳</td><td class="r">1</td><td>명동</td><td>게스트</td><td>한○○</td><td class="r">85,430</td><td class="r">25,629 몰취</td><td class="r">—</td><td><span class="bdg risk">노쇼</span></td></tr><tr><td><input type="checkbox" aria-label="PX-0923-044 선택"></td><td style="font-weight: 600">PX-0923-044</td><td>09.23 20:15</td><td>KE856 <span class="cap">T2</span></td><td>郑浩 외 1</td><td class="r">2</td><td>잠실</td><td>호스트</td><td>윤○○</td><td class="r">104,330</td><td class="r">31,299</td><td class="r">73,031</td><td>정산완료</td></tr></tbody></table>
+<div style="display: flex; justify-content: space-between"><span class="cap">128건 중 1–12 · 픽업 시각 역순 · 선택은 페이지를 넘겨도 유지</span><div style="display: flex; gap: 4px"><button class="btn gh sm" type="button">이전</button><button class="btn gh sm" type="button">다음</button></div></div>
+</div>
+</div></div>
+<div role="dialog" aria-label="열 설정" style="position: absolute; top: 148px; right: 16px; width: 240px; background: #FFFFFF; border: 1px solid #E7E3DE; border-radius: 8px; box-shadow: 0 4px 16px rgba(43, 41, 40, 0.12); padding: 12px; display: flex; flex-direction: column; gap: 2px; font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #2B2928">
+<div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px"><h3>열 설정</h3><button class="btn gh sm" type="button" style="padding: 0 6px">기본값</button></div>
+<label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px; color: #8A8580;"><input type="checkbox" checked disabled>콜카드 (고정)</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>픽업</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>편명·터미널</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>게스트</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>인원</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>목적지</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>채널</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>기사</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>예상총액</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>예약금</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox" checked>잔액</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px; color: #8A8580;"><input type="checkbox" checked disabled>상태 (고정)</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox">연락처</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox">생성 시각</label><label style="display: flex; align-items: center; gap: 8px; height: 30px; font-size: 13px;"><input type="checkbox">메모</label>
+<span class="cap" style="padding-top: 6px">내 보기로 저장됩니다</span>
+</div>
+</div>
+</div>
+
+</body>
+</html>

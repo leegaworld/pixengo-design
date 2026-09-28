@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>02 콜카드 · 큐 + 상세 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>02 콜카드 · 큐 + 상세</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Main.html">← 01 관제 · 도착 타임라인 + 배정</a> · <a href="Booking.html">03 새 예약 · Sheet →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a class="on" href="Calls.html" aria-current="page">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="width: 440px; flex-shrink: 0">
+<div class="ph"><h2>콜카드 <span class="cap" style="font-size: 13px; font-weight: 400">128</span></h2><div class="seg" role="tablist" aria-label="보기 방식"><a class="sg on" href="Calls.html" role="tab" aria-selected="true">분할</a><a class="sg" href="CallsTable.html" role="tab" aria-selected="false">표</a></div></div>
+<div style="display: flex; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #E7E3DE">
+<input type="search" aria-label="콜카드 검색" placeholder="ID, 게스트, 편명">
+<select aria-label="상태" style="width: 140px"><option>상태 전체</option><option>예외만</option><option>배차대기</option><option>결제대기</option></select>
+</div>
+<nav aria-label="콜카드 목록" style="display: flex; flex-direction: column"><a class="qi" href="#PX-0925-030"><span class="l1"><span class="id">PX-0925-030</span><span>배차대기</span></span><span class="l2">09.25 16:55 · MU5051 T1 · 杨帆 외 1 · 홍대</span></a><a class="qi" href="#PX-0925-032"><span class="l1"><span class="id">PX-0925-032</span><span>배차완료</span></span><span class="l2">09.25 15:40 · MU5045 T1 · 孙丽 · 종로</span></a><a class="qi" href="#PX-0925-021"><span class="l1"><span class="id">PX-0925-021</span><span>결제대기</span></span><span class="l2">09.25 15:05 · CZ371 T2 · 张敏 외 1 · 강남</span></a><a class="qi on" href="#PX-0925-014" aria-current="true"><span class="l1"><span class="id">PX-0925-014</span><span><span class="bdg risk">미배차 위험</span></span></span><span class="l2">09.25 14:20 · MU5041 T1 · 王伟 외 2 · 명동</span></a><a class="qi" href="#PX-0925-009"><span class="l1"><span class="id">PX-0925-009</span><span>픽업대기</span></span><span class="l2">09.25 13:15 · CA123 T1 · 李娜 · 홍대</span></a><a class="qi" href="#PX-0925-006"><span class="l1"><span class="id">PX-0925-006</span><span>탑승</span></span><span class="l2">09.25 12:40 · KE894 T2 · 刘洋 외 3 · 잠실</span></a><a class="qi" href="#PX-0925-003"><span class="l1"><span class="id">PX-0925-003</span><span>잔액결제대기</span></span><span class="l2">09.25 12:05 · MU5033 T1 · 陈静 · 종로</span></a><a class="qi" href="#PX-0924-031"><span class="l1"><span class="id">PX-0924-031</span><span><span class="bdg risk">미수 · 미분류</span></span></span><span class="l2">09.24 21:10 · MU5051 T1 · 赵磊 · 명동</span></a><a class="qi" href="#PX-0924-027"><span class="l1"><span class="id">PX-0924-027</span><span><span class="bdg warn">검수</span></span></span><span class="l2">09.24 19:30 · OZ334 T1 · 黄丽 · 홍대</span></a><a class="qi" href="#PX-0924-018"><span class="l1"><span class="id">PX-0924-018</span><span><span class="bdg risk">미배차</span></span></span><span class="l2">09.24 15:05 · CA131 T2 · 周杰 외 2 · 강남</span></a><a class="qi" href="#PX-0924-011"><span class="l1"><span class="id">PX-0924-011</span><span><span class="bdg risk">노쇼</span></span></span><span class="l2">09.24 11:50 · MU5027 T1 · 吴芳 · 명동</span></a><a class="qi" href="#PX-0923-044"><span class="l1"><span class="id">PX-0923-044</span><span>정산완료</span></span><span class="l2">09.23 20:15 · KE856 T2 · 郑浩 외 1 · 잠실</span></a></nav>
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px"><span class="cap">12 / 128 · 픽업 시각 역순</span><button class="btn gh sm" type="button">더 보기</button></div>
+</div><div class="pane bl" style="flex-grow: 1">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0925-014</h2><span>배차대기</span><span class="bdg risk">미배차 위험</span></div><span class="cap">생성 09.23 20:31 · 호스트 간이 폼</span></div>
+<div class="pb" style="gap: 24px">
+<ol aria-label="진행 단계" style="display: flex; gap: 18px; margin: 0; padding: 0; list-style: none; font-size: 12px"><li style="display: flex; align-items: center; gap: 6px; "><span style="width: 8px; height: 8px; border-radius: 50%; background: #3A3737"></span>결제대기</li><li aria-current="step" style="display: flex; align-items: center; gap: 6px; font-weight: 700"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2B100"></span>배차대기</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>배차완료</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>픽업대기</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>탑승</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>잔액결제</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>운행완료</li><li style="display: flex; align-items: center; gap: 6px; color: #716C67"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D9D4CE"></span>정산완료</li></ol>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+<section aria-labelledby="rv-h" style="display: flex; flex-direction: column; gap: 10px"><h3 id="rv-h">예약</h3>
+<dl class="kv">
+<dt>게스트</dt><dd>王伟 (Wang Wei) · 성인 3 · 캐리어 2<br><span class="cap">이름: 게스트 입력 · 인원·캐리어: 호스트 입력</span></dd>
+<dt>연락처</dt><dd>+86 138-****-2291 · WeChat wangwei_***<br><span class="cap">게스트가 결제 페이지에서 입력 · 09.23 20:38</span></dd>
+<dt>채널</dt><dd>호스트 · 서울숲 게스트하우스<br><span class="cap">호스트 입력 항목: 도착편·인원·캐리어·목적지 (개인정보 없음)</span></dd>
+<dt>도착편</dt><dd>MU5041 상하이 푸동 → T1 · 14:20 예정</dd>
+<dt>픽업 목표</dt><dd>14:20 + [입국 소요 분]</dd>
+<dt>픽업</dt><dd>T1 1층 입국장 [픽업 포인트]</dd>
+<dt>목적지</dt><dd>중구 명동 · [호텔명]</dd>
+<dt>차량</dt><dd>개인택시 중형</dd>
+<dt>취소</dt><dd>가능 · 운행 시작 기록(start_trip_at) 없음</dd>
+</dl></section>
+<section aria-labelledby="am-h" style="display: flex; flex-direction: column; gap: 10px"><div style="display: flex; justify-content: space-between"><h3 id="am-h">금액</h3><span class="cap">요금정책 v3 스냅샷</span></div>
+<div>
+<div class="row" style="justify-content: space-between"><span>운임 (예상 52.4km)</span><span>76,600</span></div>
+<div class="row" style="justify-content: space-between"><span>서비스료 (5,000원 + 5%)</span><span>8,830</span></div>
+<div class="row" style="justify-content: space-between; font-weight: 600"><span>예상총액</span><span>85,430원</span></div>
+<div class="row" style="justify-content: space-between; border-bottom: 0"><span class="cap">드라이버 수수료 2% (정산 시)</span><span class="cap">1,532</span></div>
+</div></section>
+</div>
+<section aria-labelledby="py-h" style="display: flex; flex-direction: column; gap: 10px"><h3 id="py-h">결제</h3>
+<table><thead><tr><th>회차</th><th>구분</th><th class="r">금액(원)</th><th>수단</th><th>거래번호</th><th>상태</th></tr></thead><tbody>
+<tr><td>1</td><td>예약금 30%</td><td class="r">25,629</td><td>AlipayCN</td><td>INI…7A21</td><td>승인</td></tr>
+<tr><td>2</td><td>잔액 (확정총액 − 예약금)</td><td class="r">확정 전</td><td>자동청구 · 1회차 토큰 보유 (없으면 기사 앱 QR)</td><td>—</td><td>하차 전 · <a href="Balance.html" style="text-decoration: underline">청구 흐름</a></td></tr>
+</tbody></table></section>
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div class="seg" role="tablist" aria-label="기록"><button class="sg on" type="button" role="tab" aria-selected="true">이력 6</button><button class="sg" type="button" role="tab" aria-selected="false">메모 1</button><a class="sg" href="Notify.html" role="tab" aria-selected="false">알림 발송 4</a></div>
+<div role="tabpanel">
+<div class="row"><span class="cap" style="width: 84px">09.25 11:20</span><span style="flex-grow: 1">미배차 위험 표시 (도착 3시간 전 기준)</span><span class="cap">시스템</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.23 20:41</span><span style="flex-grow: 1">예약금 승인 → 배차대기</span><span class="cap">PG 웹훅</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.23 20:40</span><span style="flex-grow: 1">같은 거래번호 중복 수신, 무시</span><span class="cap">PG 웹훅</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.23 20:38</span><span style="flex-grow: 1">게스트 이름·연락처 입력 (결제 페이지)</span><span class="cap">게스트</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.23 20:32</span><span style="flex-grow: 1">결제링크 알림톡 → 호스트가 게스트에게 전달</span><span class="cap">시스템</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.23 20:31</span><span style="flex-grow: 1">콜카드 생성 → 결제대기 (개인정보 없음)</span><span class="cap">호스트 간이 폼</span></div>
+</div></section>
+</div>
+<div class="pf"><a class="btn des" href="CancelConfirm.html">콜 취소</a><span style="flex-grow: 1"></span><button class="btn" type="button">결제링크 재발송</button><a class="btn pri" href="Main.html">배정</a></div>
+</div></div>
+
+</div>
+</div>
+
+</body>
+</html>

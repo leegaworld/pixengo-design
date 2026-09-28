@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>10 정산 · 미수 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>10 정산 · 미수</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="NoShow.html">← 09 관제 · 노쇼 확인</a> · <a href="Return.html">11 관제 · 기사 반납 → 재배정 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a class="on" href="Settlement.html" aria-current="page">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="width: 440px; flex-shrink: 0">
+<div class="ph"><div class="seg" role="tablist" aria-label="정산 구분"><a class="sg" href="Settlement.html" role="tab" aria-selected="false">기사 정산</a><a class="sg on" href="Overdue.html" role="tab" aria-selected="true">미수 3</a><a class="sg" href="Report.html" role="tab" aria-selected="false">리포트</a></div><span class="cap">합계 177,124원</span></div>
+<div style="display: flex; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #E7E3DE">
+<select aria-label="유형" style="width: 140px"><option>유형 전체</option><option>유형 A</option><option>유형 B</option><option>유형 C</option></select>
+<select aria-label="상태" style="width: 140px"><option>미처리</option><option>재청구 중</option><option>종결</option></select>
+</div>
+<nav aria-label="미수 목록" style="display: flex; flex-direction: column"><a class="qi on" href="#o0"><span class="l1"><span class="id">PX-0924-031</span><span style="display: flex; gap: 8px; align-items: center"><span class="bdg risk">미수 · 미분류</span><b>59,801</b></span></span><span class="l2">09.24 21:52 하차 · 토큰 없음 · QR 미결제</span></a><a class="qi" href="#o1"><span class="l1"><span class="id">PX-0923-029</span><span style="display: flex; gap: 8px; align-items: center"><span class="bdg risk">미수 · 미분류</span><b>53,627</b></span></span><span class="l2">09.23 18:30 하차 · 사유 기록</span></a><a class="qi" href="#o2"><span class="l1"><span class="id">PX-0922-015</span><span style="display: flex; gap: 8px; align-items: center"><span class="bdg risk">미수 · 미분류</span><b>63,696</b></span></span><span class="l2">09.22 22:10 하차 · 사유 기록</span></a></nav>
+</div><div class="pane bl" style="flex-grow: 1">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0924-031</h2><span>잔액 미수</span><span class="bdg risk">미수 · 미분류</span></div><a class="btn gh sm" href="Calls.html">콜카드</a></div>
+<div class="pb" style="gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+<section aria-labelledby="am-h" style="display: flex; flex-direction: column; gap: 8px"><h3 id="am-h">금액</h3>
+<div>
+<div class="row" style="justify-content: space-between"><span>확정총액</span><span>85,430</span></div>
+<div class="row" style="justify-content: space-between"><span>예약금 (1회차, 승인)</span><span>−25,629</span></div>
+<div class="row" style="justify-content: space-between; font-weight: 600"><span>미수 잔액 (2회차)</span><span style="color: #B42318">59,801원</span></div>
+</div>
+<dl class="kv" style="margin-top: 8px"><dt>게스트</dt><dd>赵磊 외 1 · 게스트 직접 예약</dd><dt>기사</dt><dd>김○○ · 09.24 운행</dd><dt>경과</dt><dd>하차 후 1일</dd></dl>
+</section>
+<section aria-labelledby="ty-h" style="display: flex; flex-direction: column; gap: 8px"><h3 id="ty-h">유형</h3>
+<label class="f">분류<select><option>미분류 (A/B/C 정의 전)</option><option disabled>A · [정의 D-04]</option><option disabled>B · [정의 D-04]</option><option disabled>C · [정의 D-04]</option></select></label>
+<span class="cap">A/B/C 정의 전에는 자동 분류하지 않고 유형별 자동 처리도 없습니다(D-04). 기록된 사실: 자동결제 토큰 없음 · QR 미결제 하차.</span>
+</section>
+</div>
+<section aria-labelledby="ht-h" style="display: flex; flex-direction: column; gap: 4px"><h3 id="ht-h">청구 이력</h3>
+<div class="row"><span class="cap" style="width: 84px">09.25 10:00</span><span style="flex-grow: 1">결제링크 재발송 (채널톡, 중문) · 미결제</span><span class="cap">운영자</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.24 21:52</span><span style="flex-grow: 1">미결제 상태로 하차 → 미수 (미분류)</span><span class="cap">기사 앱</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.24 21:47</span><span style="flex-grow: 1">기사 앱 QR 결제 표시</span><span class="cap">기사 앱</span></div>
+<div class="row"><span class="cap" style="width: 84px">09.24 21:46</span><span style="flex-grow: 1">잔액 자동청구 불가 · 자동결제 토큰 없음</span><span class="cap">시스템</span></div>
+</section>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px"><legend style="padding: 0; margin-bottom: 6px"><h3>처리</h3></legend>
+<label style="display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 6px; background: #FFF6D9"><input type="radio" name="od" checked><span style="flex-grow: 1">결제링크 재청구</span><span class="cap">채널톡 · [재청구 간격]</span></label>
+<label style="display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; color: #8A8580"><input type="radio" name="od" disabled><span style="flex-grow: 1">기사 현장 수금 확인</span><span style="font-size: 12px; color: #716C67">허용 여부·증빙·대사 방식 미정 D-06</span></label>
+<label style="display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px"><input type="radio" name="od"><span style="flex-grow: 1">손실 처리 (종결)</span><span class="cap">근거·사유 필수 · 되돌릴 수 없음</span></label>
+</fieldset>
+</div>
+<div class="pf"><span class="cap" style="flex-grow: 1">기사 김○○ 정산 영향 미정(D-05) → 지급 후보에서 보류 · 재청구는 기존 2회차 청구에 연결, 중복 요청 차단</span><button class="btn pri" type="button">재청구 발송</button></div>
+</div></div>
+
+</div>
+</div>
+
+</body>
+</html>

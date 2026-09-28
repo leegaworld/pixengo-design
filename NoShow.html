@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>09 관제 · 노쇼 확인 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>09 관제 · 노쇼 확인</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Delay.html">← 08 관제 · 시각 변경 · 대기</a> · <a href="Overdue.html">10 정산 · 미수 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a class="on" href="Main.html" aria-current="page">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="flex-grow: 1"><div class="pb" style="gap: 16px">
+<nav aria-label="예외 필터" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><a class="fb" href="Main.html">전체 9</a><a class="fb" href="Main.html">미배차 위험 <b style="color: #B42318">1</b></a><a class="fb" href="Main.html">도착 확인 2</a><a class="fb" href="Delay.html">시각 변경 2</a><a class="fb on" href="NoShow.html" aria-current="true">노쇼 신청 1</a><a class="fb" href="Return.html">기사 반납 1</a><a class="fb" href="Notify.html">연락 실패 1</a><a class="fb" href="Balance.html">잔액 청구 1</a><a class="fb" href="Main.html">결제대기 1</a><span style="flex-grow: 1"></span><span class="cap">오늘 픽업 18<span class="sep" aria-hidden="true">·</span>T1 11<span class="sep" aria-hidden="true">·</span>T2 7<span class="sep" aria-hidden="true">·</span>13:20 기준</span></nav>
+<section aria-labelledby="ns-h" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 id="ns-h">노쇼 신청 1</h2><span class="cap">기사 앱에서 신청 · 운영자 확인 후 확정</span></div>
+<table><thead><tr><th>신청</th><th>편명</th><th>콜카드</th><th>게스트</th><th>기사</th><th class="r">대기 경과</th><th>근거</th></tr></thead><tbody>
+<tr class="sel"><td>13:12</td><td style="font-weight: 500">CZ369 <span class="cap">T2</span></td><td style="font-weight: 600">PX-0925-004</td><td>何静</td><td>노○○</td><td class="r" style="font-weight: 600">92분</td><td>2 / 4 확인</td></tr>
+</tbody></table>
+</section>
+<section aria-labelledby="rl-h" style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="rl-h">노쇼 판정 기준</h2>
+<div class="row"><span style="width: 180px; font-weight: 500">착륙 확인</span><span>도착편 API 또는 운영자 수동 확인</span></div>
+<div class="row"><span style="width: 180px; font-weight: 500">기사 픽업 포인트 도착</span><span>기사 앱 위치 · 도착 보고</span></div>
+<div class="row"><span style="width: 180px; font-weight: 500">대기 시간</span><span>착륙 후 [무료 대기 분] 경과</span></div>
+<div class="row"><span style="width: 180px; font-weight: 500">연락 시도</span><span>무료 대기 경과 후 [n]회 이상, 응답 없음</span></div>
+<span class="cap">기사 신청만으로 노쇼가 되지 않습니다. 근거 4개가 모두 확인되고 D-01~03이 결정되기 전에는 확정할 수 없습니다. 도착편 API 장애 중에는 착륙을 운영자가 직접 확인합니다.</span>
+</section>
+</div></div><aside class="pane bl" style="width: 480px; flex-shrink: 0" aria-label="노쇼 확인">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0925-004</h2><span>픽업대기</span><span class="bdg risk">노쇼 신청</span></div><a class="btn gh sm" href="Calls.html">콜카드</a></div>
+<div class="pb">
+<dl class="kv">
+<dt>도착편</dt><dd>CZ369 광저우 → T2 · 11:48 착륙</dd>
+<dt>게스트</dt><dd>何静 · 게스트 직접 예약 · 종로</dd>
+<dt>기사</dt><dd>노○○ · 11:40 T2 도착</dd>
+<dt>금액</dt><dd>예상 81,020원 · 예약금 24,306원 승인</dd>
+</dl>
+<section aria-labelledby="ev-h" style="display: flex; flex-direction: column; gap: 4px"><h3 id="ev-h">근거</h3>
+<div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="width: 120px">착륙</span><span style="flex-grow: 1">11:48 · 도착편 API</span></div>
+<div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span style="width: 120px">기사 도착</span><span style="flex-grow: 1">11:40 · T2 [픽업 포인트] · 앱 위치</span></div>
+<div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2B2928" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span style="width: 120px">대기</span><span style="flex-grow: 1">92분 경과 (착륙 기준 참고값) · 시작 기준·무료 대기 미정 D-01</span></div>
+<div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2B2928" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span style="width: 120px">연락</span><span style="flex-grow: 1">채널톡 메시지 12:50 · 통화 12:58 · 응답 없음 · 횟수·간격 기준 미정 D-02</span></div>
+</section>
+<section aria-labelledby="rs-h" style="display: flex; flex-direction: column; gap: 6px"><h3 id="rs-h">확정하면</h3>
+<div class="row" style="justify-content: space-between"><span>예약금 몰취</span><span style="font-weight: 600">24,306원</span></div>
+<div class="row" style="justify-content: space-between"><span>배분</span><span>70 / 30 · 수령 주체·원 단위 처리 미정 D-03</span></div>
+<div class="row" style="justify-content: space-between; border-bottom: 0"><span>잔액 청구</span><span>없음 · 콜카드 → 노쇼 종료</span></div>
+</section>
+<label class="f">확인 메모 *<textarea rows="2" placeholder="예: 착륙 후 92분, 채널톡 2회 무응답 확인"></textarea></label>
+</div>
+<div class="pf"><button class="btn" type="button" disabled title="연장 단위·승인 주체 미정">대기 [n]분 연장</button><span class="cap" style="flex-grow: 1">확정 불가 · 근거 2/4 · D-01~03 미결정</span><button class="btn des" type="button" disabled title="근거 4/4 확인과 D-01~03 결정 후 가능">노쇼 확정</button></div>
+</aside></div>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>06 검수 · 분쟁 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>06 검수 · 분쟁</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Settlement.html">← 05 정산 · 행 펼침</a> · <a href="Delay.html">08 관제 · 시각 변경 · 대기 →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a class="on" href="Disputes.html" aria-current="page">검수<span class="n">4</span></a><a href="Settings.html">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="width: 400px; flex-shrink: 0">
+<div class="ph"><h2>검수 · 분쟁 <span class="cap" style="font-size: 13px; font-weight: 400">4</span></h2></div>
+<div style="padding: 12px 16px; border-bottom: 1px solid #E7E3DE"><div class="seg" role="tablist" aria-label="구분"><button class="sg on" type="button" role="tab" aria-selected="true">열림 4</button><button class="sg" type="button" role="tab" aria-selected="false">요금 3</button><button class="sg" type="button" role="tab" aria-selected="false">분쟁 1</button><button class="sg" type="button" role="tab" aria-selected="false">종결</button></div></div>
+<nav aria-label="검수 목록" style="display: flex; flex-direction: column"><a class="qi on" href="#f0"><span class="l1"><span class="id">PX-0924-027</span><span>검수 필요</span></span><span class="l2">확정총액 +29% · 자동 탐지</span></a><a class="qi" href="#f1"><span class="l1"><span class="id">PX-0924-011</span><span><span class="bdg warn">분쟁</span></span></span><span class="l2">노쇼 판정 이의 · 게스트</span></a><a class="qi" href="#f2"><span class="l1"><span class="id">PX-0923-038</span><span>검수 필요</span></span><span class="l2">대기료 과다 · 착륙 후 95분 · 자동 탐지</span></a><a class="qi" href="#f3"><span class="l1"><span class="id">PX-0923-019</span><span>조정 완료</span></span><span class="l2">경로 이탈 의심 · 자동 탐지</span></a></nav>
+</div><div class="pane bl" style="flex-grow: 1">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>PX-0924-027</h2><span>확정총액 +29%</span></div><a class="btn gh sm" href="Calls.html">콜카드</a></div>
+<div class="pb" style="gap: 24px">
+<div style="display: grid; grid-template-columns: 3fr 2fr; gap: 24px">
+<section aria-labelledby="cp-h" style="display: flex; flex-direction: column; gap: 8px"><h3 id="cp-h">예상과 확정</h3>
+<table><thead><tr><th>항목</th><th class="r">예상(원)</th><th class="r">확정(원)</th><th class="r">차이</th></tr></thead><tbody>
+<tr><td>운임</td><td class="r">68,200</td><td class="r">80,100</td><td class="r">+11,900</td></tr>
+<tr><td>대기료</td><td class="r">0</td><td class="r">10,000</td><td class="r">+10,000</td></tr>
+<tr><td>서비스료</td><td class="r">8,410</td><td class="r">9,005</td><td class="r">+595</td></tr>
+<tr><td style="font-weight: 600">총액</td><td class="r" style="font-weight: 600">76,610</td><td class="r" style="font-weight: 600">99,105</td><td class="r" style="font-weight: 600; color: #B42318">+22,495</td></tr>
+</tbody></table></section>
+<section aria-labelledby="rt-h" style="display: flex; flex-direction: column; gap: 8px"><div style="display: flex; justify-content: space-between"><h3 id="rt-h">경로</h3><span class="cap">예상 52.4km · 실제 61.8km</span></div>
+<div class="ph-img" style="height: 150px">[네이버 지도 · 예상/실제 경로]</div></section>
+</div>
+<section aria-labelledby="jd-h" style="display: flex; flex-direction: column; gap: 12px"><h3 id="jd-h">판정</h3>
+<div class="seg" role="radiogroup" aria-label="판정"><button class="sg" type="button" role="radio" aria-checked="false">정상</button><button class="sg on" type="button" role="radio" aria-checked="true">부분 조정</button><button class="sg" type="button" role="radio" aria-checked="false">기각 (예상 금액)</button></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<label class="f">조정 항목<select><option>대기료 제외</option><option>운임 경로 이탈분</option><option>기타</option></select></label>
+<label class="f">조정 금액 (원)<input type="text" value="−10,000"></label>
+<label class="f">근거<select><option>무료 대기시간 이내</option><option>경로 이탈</option><option>기타</option></select></label>
+</div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="font-weight: 500">부담</span>
+<div class="seg" role="radiogroup" aria-label="부담 주체"><button class="sg on" type="button" role="radio" aria-checked="true">기사 차감 + 게스트 환불</button><button class="sg" type="button" role="radio" aria-checked="false">플랫폼 부담 + 게스트 환불</button></div></div>
+<table><thead><tr><th>판정 결과 미리보기</th><th class="r">현재(원)</th><th class="r">판정 후(원)</th><th>처리</th></tr></thead><tbody>
+<tr><td>게스트 결제</td><td class="r">99,105</td><td class="r" style="font-weight: 600">89,105</td><td>10,000원 부분 환불 · [환불 방식 미정]</td></tr>
+<tr><td>기사 최○○ 정산</td><td class="r">대기료 10,000</td><td class="r" style="font-weight: 600">0</td><td>다음 주차 조정 −10,000</td></tr>
+<tr><td>플랫폼 매출</td><td class="r">9,005 + 1,602</td><td class="r">변동 없음</td><td>서비스료·수수료는 운임 기준</td></tr>
+</tbody></table>
+<label class="f">사유 *<textarea rows="1">착륙 후 [무료 대기시간] 이내 확인. 대기료 제외.</textarea></label>
+</section>
+</div>
+<div class="pf"><span class="cap" style="flex-grow: 1">부분 환불 방식이 정해지기 전에는 저장할 수 없습니다 (덱: 부분취소 미사용)</span><button class="btn gh" type="button">보류</button><button class="btn pri" type="button" disabled title="부분 환불 방식 확정 후 저장 가능">판정 저장</button></div>
+</div></div>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1480">
+<meta name="robots" content="noindex, nofollow">
+<title>16 설정 · 거점 운영값 · Pixengo 어드민 v3 시안</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+
+html{background:#FAF8F4}
+body{margin:0}
+.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
+.frame-bar a{color:#2B2928;text-decoration:underline}
+.frame-bar .fb-meta{color:#716C67}
+.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
+.frame-wrap [inert]{pointer-events:none}
+</style>
+</head>
+<body>
+<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>16 설정 · 거점 운영값</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="Report.html">← 15 정산 · 리포트</a> · <a href="States.html">17 상태 · ⌘K →</a></nav>
+<div class="frame-wrap">
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a class="on" href="Settings.html" aria-current="page">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="width: 360px; flex-shrink: 0">
+<div class="ph"><h2>설정</h2><span class="cap">정책 관리 권한</span></div>
+<nav aria-label="설정 항목" style="display: flex; flex-direction: column"><a class="qi on" href="#s0" aria-current="true"><span class="l1"><span class="id">ICN 인천 · 운영값</span></span><span class="l2">대기·노쇼·배차·안내·결제</span></a><a class="qi" href="#s1"><span class="l1"><span class="id">배정 추천 순서</span></span><span class="l2">5단계 · 필수 2 + 정렬 3</span></a><a class="qi" href="PricePolicy.html"><span class="l1"><span class="id">요금정책</span></span><span class="l2">v3 적용 중 · 2026.09.01 –</span></a><a class="qi" href="#s3"><span class="l1"><span class="id">장소</span></span><span class="l2">자체 호텔DB 3</span></a><a class="qi" href="#s4"><span class="l1"><span class="id">알림 템플릿</span></span><span class="l2">11종 · 심사 상태 [확인]</span></a><a class="qi" href="#s5"><span class="l1"><span class="id">GMP 김포</span></span><span class="l2">Phase 2 · 비활성</span></a></nav>
+</div><div class="pane bl" style="flex-grow: 1">
+<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>ICN 인천 · 운영값</h2><span>활성</span></div><button class="btn gh sm" type="button">변경 이력</button></div>
+<div class="pb" style="gap: 24px">
+<section style="display: flex; flex-direction: column; gap: 10px"><h3>대기 · 노쇼</h3><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><label class="f">무료 대기 시작 기준 · 분<input type="text" value="[선택 필요 · D-01]"></label><label class="f">노쇼 신청 전 연락 시도 (회)<input type="text" value="[n]"></label><label class="f">대기 연장 단위 · 승인 주체<input type="text" value="[결정 필요]"></label></div></section>
+<section style="display: flex; flex-direction: column; gap: 10px"><h3>시각 변경</h3><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><label class="f">입국 소요 (분)<input type="text" value="[분]"></label><label class="f">재안내 기준 변동 (분)<input type="text" value="[분]"></label><label class="f">기사 선행 도착 여유 (분)<input type="text" value="[분]"></label></div></section>
+<section style="display: flex; flex-direction: column; gap: 10px"><h3>배차</h3><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><label class="f">미배차 위험 기준<input type="text" value="도착 3시간 전"></label><label class="f">반납 페널티 기준<input type="text" value="픽업 [n]시간 이내"></label><label class="f">정지 기준<input type="text" value="[n]점 · [기간]"></label></div></section>
+<section style="display: flex; flex-direction: column; gap: 10px"><h3>결제</h3><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><label class="f">결제링크 유효 시간<input type="text" value="[시간]"></label><label class="f">미수 재청구 간격<input type="text" value="[간격]"></label><label class="f">서류 만료 사전 안내<input type="text" value="[n]일 전"></label><label class="f">미수 전환 기한·조건<input type="text" value="[결정 필요 · D-10]"></label></div></section>
+<section style="display: flex; flex-direction: column; gap: 10px"><h3>픽업 포인트</h3>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px"><label class="f">T1<input type="text" value="[T1 픽업 위치 안내]"></label><label class="f">T2<input type="text" value="[T2 픽업 위치 안내]"></label></div></section>
+</div>
+<div class="pf"><span class="cap" style="flex-grow: 1">결정 기록(D-01~10)이 없는 값은 계산·자동 판정에 쓰지 않음 · 저장 시 새 콜카드부터 적용 · 이력 보존</span><button class="btn gh" type="button">되돌리기</button><button class="btn pri" type="button">저장</button></div>
+</div></div>
+
+</div>
+</div>
+
+</body>
+</html>
