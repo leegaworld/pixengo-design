@@ -2,126 +2,98 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1480">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>23 설정 · 요금정책 버전 · Pixengo 어드민 v3 시안</title>
+<title>23 설정 · 요금정책 버전 · Pixengo 어드민 시안</title>
 <style>
-body{margin:0;background:#FFFFFF}
-a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
-.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
-.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
-.brand{font-size:16px;font-weight:700;padding-right:8px}
-.nav{display:flex;gap:2px}
-.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
-.nav a:hover{color:#2B2928}
-.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
-.nav .n{font-size:12px;color:#716C67;font-weight:400}
-.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
-.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
-.work{flex-grow:1;display:flex;min-height:0}
-.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
-.bl{border-left:1px solid #E7E3DE}
-.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
-h2{margin:0;font-size:16px;font-weight:600}
-h3{margin:0;font-size:13px;font-weight:600}
-.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
-.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
-.cap{font-size:12px;color:#716C67}
-.sep{color:#8A8580;padding:0 4px}
-.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
-.qi.on{background:#FFF6D9}
-.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.qi .id{font-weight:600}
-.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root{--bg:#FFFFFF;--fg:#2B2928;--cap:#716C67;--subtle:#8A8580;--line:#E7E3DE;--surface:#FAF8F4;--head:#3A3737;--gold:#F2B100;--accent:#FFF6D9;--sec:#F4F1ED;--risk:#B42318}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-variant-numeric:tabular-nums}
+a{color:var(--fg)}a:hover{text-decoration-thickness:2px}
+.layout{display:flex;min-height:100vh}
+.sn{width:248px;flex-shrink:0;border-right:1px solid var(--line);background:var(--surface);padding:20px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sn .brand{display:block;padding:0 10px 16px;font-size:16px;font-weight:700;text-decoration:none}
+.sn .brand span{display:block;font-size:12px;font-weight:400;color:var(--cap)}
+.sn h2{margin:16px 10px 4px;font-size:12px;font-weight:600;color:var(--cap)}
+.sn a.it{display:flex;gap:8px;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:13px;line-height:1.4}
+.sn a.it .n{color:var(--cap);width:22px;flex-shrink:0}
+.sn a.it:hover{background:var(--sec)}
+.sn a.it[aria-current]{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);font-weight:600}
+.sn a.it[aria-current] .n{color:var(--fg)}
+.main{flex-grow:1;min-width:0;padding:24px 32px 64px}
+.crumb{font-size:12px;color:var(--cap)}
+h1{margin:2px 0 4px;font-size:24px;line-height:1.3}
+.purpose{margin:0;color:var(--fg);max-width:880px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 12px}
+.bar .grow{flex-grow:1}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 12px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;font:inherit;font-size:13px;color:var(--fg);text-decoration:none;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--sec);border-color:var(--sec);font-weight:600}
+details.req{border:1px solid var(--line);border-radius:8px;margin:0 0 16px}
+details.req summary{cursor:pointer;padding:10px 14px;font-weight:600;list-style-position:inside}
+details.req .body{padding:0 14px 14px}
+.note{margin:0 0 10px;color:var(--cap);font-size:13px}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
-td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
-th.r,td.r{text-align:right}
-tr.sel td{background:#FFF6D9}
-tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
-.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
-.bdg.risk{background:#B42318;color:#FFFFFF}
-.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
-.btn:hover{border-color:#B98A00}
-.btn.pri{background:#F2B100;border-color:#F2B100}
-.btn.gh{background:transparent;border-color:transparent}
-.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
-.btn.sm{height:32px;padding:0 12px;font-size:13px}
-.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
-input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
-input::placeholder,textarea::placeholder{color:#716C67}
-textarea{height:auto;padding:8px 10px;resize:none}
-input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
-label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
-.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
-.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
-.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
-.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
-.fb.on{border-color:#3A3737;font-weight:600}
-.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
-.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
-.kv dt{color:#716C67}.kv dd{margin:0}
-.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
-.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
-.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
-.hl{font-size:18px;font-weight:600}
-
-html{background:#FAF8F4}
-body{margin:0}
-.frame-bar{display:flex;align-items:center;gap:12px;height:40px;padding:0 16px;font:13px/1.4 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FAF8F4;border-bottom:1px solid #E7E3DE;position:sticky;top:0;left:0;z-index:10}
-.frame-bar a{color:#2B2928;text-decoration:underline}
-.frame-bar .fb-meta{color:#716C67}
-.frame-wrap{width:1440px;margin:16px auto 32px;box-shadow:0 0 0 1px #E7E3DE}
-.frame-wrap [inert]{pointer-events:none}
+th{background:var(--head);color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;padding:8px 10px;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.id{white-space:nowrap;font-weight:600}
+td.sl{white-space:nowrap;color:var(--cap)}
+.st{display:inline-block;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap;background:var(--sec)}
+.st.wait,.st.partial{background:var(--accent);box-shadow:inset 0 0 0 1px var(--gold)}
+.st.server{background:#FFFFFF;box-shadow:inset 0 0 0 1px #D9D4CE}
+.st.none{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--risk);color:var(--risk)}
+.dec{margin:10px 0 0;font-size:13px}
+.stage{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.stage.actual{overflow:auto}
+.stage iframe{display:block;border:0;width:1440px;transform-origin:0 0;background:#FFFFFF}
+.pn{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:13px}
+.lead{max-width:880px}
+.meta td:first-child{width:120px;color:var(--cap)}
+@media (max-width: 900px){.layout{display:block}.sn{position:static;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line)}.main{padding:16px}}
 </style>
 </head>
 <body>
-<nav class="frame-bar" aria-label="시안 탐색"><a href="index.html">시안 목록</a><b>23 설정 · 요금정책 버전</b><span class="fb-meta">예시 데이터 · 정적 시안</span><span style="flex-grow:1"></span><a href="CancelConfirm.html">← 22 콜카드 · 취소 확인</a> · <a href="RejectConfirm.html">24 드라이버 · 반려 확인 →</a></nav>
-<div class="frame-wrap">
-<div class="app" style="width: 1440px; height: 900px">
-<header class="top">
-<span class="brand">Pixengo</span>
-<nav class="nav" aria-label="주 메뉴"><a href="Main.html">관제</a><a href="Calls.html">콜카드</a><a href="Drivers.html">드라이버<span class="n">5</span></a><a href="Settlement.html">정산</a><a href="Disputes.html">검수<span class="n">4</span></a><a class="on" href="Settings.html" aria-current="page">설정</a></nav>
-<div class="tr">
-<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
-<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
-<a class="btn pri sm" href="Booking.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
-<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
-</div>
-</header>
-<div class="work"><div class="pane" style="width: 360px; flex-shrink: 0">
-<div class="ph"><h2>설정</h2><span class="cap">정책 관리 권한</span></div>
-<nav aria-label="설정 항목" style="display: flex; flex-direction: column"><a class="qi" href="Settings.html"><span class="l1"><span class="id">ICN 인천 · 운영값</span></span><span class="l2">대기·노쇼·배차·안내·결제</span></a><a class="qi" href="#s1"><span class="l1"><span class="id">배정 추천 순서</span></span><span class="l2">5단계 · 필수 2 + 정렬 3</span></a><a class="qi on" href="PricePolicy.html" aria-current="true"><span class="l1"><span class="id">요금정책</span></span><span class="l2">v3 적용 중 · 2026.09.01 –</span></a><a class="qi" href="#s3"><span class="l1"><span class="id">장소</span></span><span class="l2">자체 호텔DB 3</span></a><a class="qi" href="#s4"><span class="l1"><span class="id">알림 템플릿</span></span><span class="l2">11종 · 심사 상태 [확인]</span></a><a class="qi" href="#s5"><span class="l1"><span class="id">GMP 김포</span></span><span class="l2">Phase 2 · 비활성</span></a></nav>
-</div><div class="pane bl" style="flex-grow: 1">
-<div class="ph"><div style="display: flex; align-items: center; gap: 8px"><h2>요금정책</h2><span>v3 적용 중</span></div><button class="btn gh sm" type="button">변경 이력</button></div>
-<div class="pb" style="gap: 24px">
-<section aria-labelledby="vl-h" style="display: flex; flex-direction: column; gap: 8px"><h3 id="vl-h">버전</h3>
-<table><thead><tr><th>버전</th><th>적용 거점</th><th>적용 기간</th><th>작성 · 승인</th><th>상태</th></tr></thead><tbody>
-<tr class="sel"><td style="font-weight: 600">v3</td><td>ICN</td><td>2026.09.01 00:00 –</td><td>[작성자] · [승인자]</td><td>적용 중 · 읽기 전용</td></tr>
-<tr><td style="font-weight: 600">v2</td><td>ICN</td><td>2026.08.01 – 08.31</td><td>[작성자] · [승인자]</td><td>종료</td></tr>
-</tbody></table></section>
-<section aria-labelledby="rt-h" style="display: flex; flex-direction: column; gap: 10px"><h3 id="rt-h">v3 요율</h3>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
-<label class="f">게스트 서비스료 정액 (원)<input type="text" value="5,000" readonly></label><label class="f">게스트 서비스료 정률 (%)<input type="text" value="5" readonly></label><label class="f">드라이버 수수료 (%)<input type="text" value="2" readonly></label><label class="f">예약금 (%)<input type="text" value="30" readonly></label>
-<label class="f">우선예약요금 배분<input type="text" value="기사 100%" readonly></label><label class="f">대기료 배분<input type="text" value="기사 100%" readonly></label><label class="f">노쇼 예약금 배분<input type="text" value="70 / 30 · 주체 D-03" readonly></label><label class="f">원 단위 처리<input type="text" value="[결정 필요]" readonly></label>
-</div></section>
-<section aria-labelledby="nv-h" style="display: flex; flex-direction: column; gap: 10px"><h3 id="nv-h">새 버전 만들기</h3>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
-<label class="f">복사할 버전<select><option>v3</option></select></label>
-<label class="f">적용 거점<select><option>ICN</option></select></label>
-<label class="f">적용 시작 (미래 시각만)<input type="text" placeholder="YYYY.MM.DD HH:MM"></label>
-</div>
-<div class="row"><b style="width: 160px">새 콜카드</b><span style="flex-grow: 1">적용 시작 이후 생성된 콜부터 새 요율</span></div>
-<div class="row"><b style="width: 160px">기존·진행 중 콜</b><span style="flex-grow: 1">예약 시점에 복사한 요율 스냅샷 유지 · 소급 적용 없음</span></div>
-<div class="row"><b style="width: 160px">승인</b><span style="flex-grow: 1">초안 → 승인 → 예약 적용. 적용 전까지 수정 가능, 적용 후 읽기 전용</span></div>
-</section>
-</div>
-<div class="pf"><span class="cap" style="flex-grow: 1">버전과 변경 이력은 삭제되지 않습니다</span><button class="btn pri" type="button">v4 초안 만들기</button></div>
-</div></div>
+<div class="layout">
+<nav class="sn" aria-label="시안 메뉴"><a class="brand" href="index.html">Pixengo 어드민 시안<span>v3 · 정적 HTML · 예시 데이터</span></a><h2>시작</h2><a class="it" href="index.html"><span class="n"></span><span>홈 · 화면 목록</span></a><a class="it" href="requirements.html"><span class="n"></span><span>온보딩 요구사항 대조표</span></a><h2>관제</h2><a class="it" href="Main.html"><span class="n">01</span><span>관제 · 도착 타임라인 + 배정</span></a><a class="it" href="Delay.html"><span class="n">08</span><span>관제 · 시각 변경 · 대기</span></a><a class="it" href="NoShow.html"><span class="n">09</span><span>관제 · 노쇼 확인</span></a><a class="it" href="Return.html"><span class="n">11</span><span>관제 · 기사 반납 → 재배정</span></a><a class="it" href="Balance.html"><span class="n">20</span><span>관제 · 잔액 청구 (QR 폴백)</span></a><h2>콜카드</h2><a class="it" href="Calls.html"><span class="n">02</span><span>콜카드 · 큐 + 상세</span></a><a class="it" href="Booking.html"><span class="n">03</span><span>새 예약 · Sheet</span></a><a class="it" href="CallsTable.html"><span class="n">12</span><span>콜카드 · 표 보기 · 일괄 처리</span></a><a class="it" href="Notify.html"><span class="n">13</span><span>콜카드 · 알림 발송 · 템플릿</span></a><a class="it" href="CancelConfirm.html"><span class="n">22</span><span>콜카드 · 취소 확인</span></a><h2>드라이버</h2><a class="it" href="Drivers.html"><span class="n">04</span><span>드라이버 심사</span></a><a class="it" href="DriverProfile.html"><span class="n">14</span><span>드라이버 · 서류 만료 · 페널티</span></a><a class="it" href="RejectConfirm.html"><span class="n">24</span><span>드라이버 · 반려 확인</span></a><h2>정산</h2><a class="it" href="Settlement.html"><span class="n">05</span><span>정산 · 행 펼침</span></a><a class="it" href="Overdue.html"><span class="n">10</span><span>정산 · 미수</span></a><a class="it" href="Report.html"><span class="n">15</span><span>정산 · 리포트</span></a><a class="it" href="SettleConfirm.html"><span class="n">21</span><span>정산 · 지급대행 확인</span></a><h2>검수</h2><a class="it" href="Disputes.html"><span class="n">06</span><span>검수 · 분쟁</span></a><h2>설정</h2><a class="it" href="Settings.html"><span class="n">16</span><span>설정 · 거점 운영값</span></a><a class="it" href="PricePolicy.html" aria-current="page"><span class="n">23</span><span>설정 · 요금정책 버전</span></a><h2>공통</h2><a class="it" href="States.html"><span class="n">17</span><span>상태 · ⌘K</span></a><h2>Phase 3</h2><a class="it" href="Partners.html"><span class="n">18</span><span>[Phase 3] 제휴 운영사</span></a><a class="it" href="Accounts.html"><span class="n">19</span><span>[Phase 3] 채널 계정 · 기업 의전</span></a></nav>
+<main class="main">
 
+<div class="crumb">설정 · 화면 23</div>
+<h1>설정 · 요금정책 버전</h1>
+<p class="purpose">정책 관리자가 요금정책 버전을 확인하고, 바꿀 때 새 버전을 만든다.</p>
+<details class="req" open>
+<summary>온보딩 요구사항 대조 — 슬라이드 2, 슬라이드 3, 슬라이드 4, 슬라이드 6, 슬라이드 7, 슬라이드 10</summary>
+<div class="body">
+<p class="note">기준: 개발자 온보딩 덱(PRD v0.22). 덱은 어드민을 "9화면"(슬라이드 6)이라고만 적고 목록이 없어, 이 화면 구성은 덱의 기능 언급으로 추정했습니다.</p>
+<table><thead><tr><th>요구사항</th><th>덱</th><th>덱 내용</th><th>시안에서 확인할 곳</th><th>상태</th></tr></thead><tbody><tr><td class="id">R16</td><td class="sl">슬라이드 6, 슬라이드 10</td><td>금액은 INT 원 단위, 적용 요율은 값으로 복사 저장 — 요금정책이 바뀌어도 과거 건 재현</td><td>&quot;기존·진행 중 콜: 예약 시점 요율 스냅샷 유지 · 소급 없음&quot;</td><td><span class="st ok">화면 반영</span></td></tr><tr><td class="id">R04</td><td class="sl">슬라이드 2</td><td>수익 모델 — 게스트 서비스료 5,000원+5% / 드라이버 수수료 2%</td><td>v3 요율: 서비스료 5,000원 + 5%, 수수료 2%</td><td><span class="st ok">화면 반영</span></td></tr><tr><td class="id">R05</td><td class="sl">슬라이드 2, 슬라이드 7</td><td>분할 결제 — 예약 시 예약금 30% + 하차 직전 잔액 (부분취소·빌링키 불필요)</td><td>예약금 30%, 원 단위 처리 [결정 필요]</td><td><span class="st partial">일부 반영</span></td></tr><tr><td class="id">R06</td><td class="sl">슬라이드 3, 슬라이드 4</td><td>우선예약요금·대기료는 전액 기사 배분</td><td>우선예약요금·대기료 기사 100%</td><td><span class="st ok">화면 반영</span></td></tr><tr><td class="id">R33</td><td class="sl">슬라이드 10</td><td>이력은 지우지 않음 — 상태·금액·계좌 변경은 별도 로그, Phase 0부터 적재</td><td>&quot;버전과 변경 이력은 삭제되지 않습니다&quot;</td><td><span class="st ok">화면 반영</span></td></tr></tbody></table>
+<p class="dec">이 화면에 걸린 정책 결정: <b>D-03</b> — 결정 전에는 해당 버튼이 비활성입니다.</p>
 </div>
+</details>
+<div class="bar" role="group" aria-label="시안 보기 크기">
+<button class="btn" type="button" data-size="fit" aria-pressed="true">창에 맞춤</button>
+<button class="btn" type="button" data-size="actual" aria-pressed="false">실제 크기 (1440px)</button>
+<span class="grow"></span>
+<a class="btn" href="screens/PricePolicy.html" target="_blank" rel="noopener">새 창에서 시안만 보기</a>
 </div>
-
+<div class="stage"><iframe src="screens/PricePolicy.html" width="1440" height="900" title="23 설정 · 요금정책 버전 시안" loading="eager"></iframe></div>
+<nav class="pn" aria-label="이전·다음 화면"><a href="Settings.html">← 16 설정 · 거점 운영값</a><a href="States.html">17 상태 · ⌘K →</a></nav>
+</main>
+</div>
+<script>
+(function () {
+  var stage = document.querySelector('.stage'), frame = stage.querySelector('iframe');
+  var H = +frame.getAttribute('height'), mode = 'fit';
+  try { mode = localStorage.getItem('pixengo-size') || 'fit'; } catch (e) {}
+  function apply() {
+    var s = mode === 'actual' ? 1 : Math.min(1, stage.clientWidth / 1440);
+    frame.style.transform = 'scale(' + s + ')';
+    stage.style.height = Math.ceil(H * s) + 'px';
+    stage.classList.toggle('actual', mode === 'actual');
+    document.querySelectorAll('[data-size]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-size') === mode ? 'true' : 'false'); });
+  }
+  document.querySelectorAll('[data-size]').forEach(function (b) {
+    b.addEventListener('click', function () { mode = b.getAttribute('data-size'); try { localStorage.setItem('pixengo-size', mode); } catch (e) {} apply(); });
+  });
+  window.addEventListener('resize', apply); apply();
+})();
+</script>
 </body>
 </html>

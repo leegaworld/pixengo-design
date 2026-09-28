@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>05 정산 · 행 펼침</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#2B2928;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#2B2928;background:#FFFFFF;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;position:relative;overflow:hidden}
+.top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.brand{font-size:16px;font-weight:700;padding-right:8px}
+.nav{display:flex;gap:2px}
+.nav a{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:6px;font-size:14px;color:#716C67}
+.nav a:hover{color:#2B2928}
+.nav a.on{background:#F4F1ED;color:#2B2928;font-weight:600}
+.nav .n{font-size:12px;color:#716C67;font-weight:400}
+.tr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.av{width:32px;height:32px;border-radius:50%;background:#3A3737;color:#FFFFFF;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.work{flex-grow:1;display:flex;min-height:0}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bl{border-left:1px solid #E7E3DE}
+.ph{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+h2{margin:0;font-size:16px;font-weight:600}
+h3{margin:0;font-size:13px;font-weight:600}
+.pb{padding:16px;display:flex;flex-direction:column;gap:20px;min-height:0}
+.pf{margin-top:auto;border-top:1px solid #E7E3DE;padding:12px 16px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cap{font-size:12px;color:#716C67}
+.sep{color:#8A8580;padding:0 4px}
+.qi{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;height:56px;border-bottom:1px solid #E7E3DE;box-sizing:border-box}
+.qi.on{background:#FFF6D9}
+.qi .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qi .id{font-weight:600}
+.qi .l2{font-size:12px;color:#716C67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#3A3737;color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;height:36px;padding:0 12px;white-space:nowrap}
+td{height:40px;padding:0 12px;border-bottom:1px solid #E7E3DE;white-space:nowrap}
+th.r,td.r{text-align:right}
+tr.sel td{background:#FFF6D9}
+tr.sub td{background:#FAF8F4;height:32px;font-size:12px}
+.bdg{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap}
+.bdg.risk{background:#B42318;color:#FFFFFF}
+.bdg.warn{background:#FFF6D9;color:#2B2928;box-shadow:inset 0 0 0 1px #F2B100}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;border:1px solid #D9D4CE;background:#FFFFFF;color:#2B2928;cursor:pointer;white-space:nowrap;box-sizing:border-box}
+.btn:hover{border-color:#B98A00}
+.btn.pri{background:#F2B100;border-color:#F2B100}
+.btn.gh{background:transparent;border-color:transparent}
+.btn.des{background:#B42318;border-color:#B42318;color:#FFFFFF}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.btn:disabled{background:#F4F1ED;border-color:#F4F1ED;color:#8A8580;cursor:not-allowed}
+input,select,textarea{font:inherit;font-size:13px;height:36px;padding:0 10px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;color:#2B2928;box-sizing:border-box;width:100%}
+input::placeholder,textarea::placeholder{color:#716C67}
+textarea{height:auto;padding:8px 10px;resize:none}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;padding:0;margin:0;accent-color:#3A3737;flex-shrink:0}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:500}
+.seg{display:inline-flex;gap:2px;padding:2px;background:#F4F1ED;border-radius:8px}
+.sg{height:28px;padding:0 10px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:13px;color:#716C67;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.sg.on{background:#FFFFFF;color:#2B2928;font-weight:600}
+.fb{height:28px;padding:0 10px;border-radius:6px;border:1px solid #E7E3DE;background:#FFFFFF;font:inherit;font-size:13px;color:#2B2928;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fb.on{border-color:#3A3737;font-weight:600}
+.kbd{font-size:12px;color:#716C67;border:1px solid #E7E3DE;border-radius:4px;padding:0 5px;line-height:18px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:6px;column-gap:12px;margin:0}
+.kv dt{color:#716C67}.kv dd{margin:0}
+.row{display:flex;align-items:center;gap:10px;height:36px;border-bottom:1px solid #E7E3DE}
+.ph-img{border:1px dashed #D9D4CE;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#716C67;background:#FAF8F4}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #B42318;border-radius:6px}
+.hl{font-size:18px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="app" style="width: 1440px; height: 900px">
+<header class="top">
+<span class="brand">Pixengo</span>
+<nav class="nav" aria-label="주 메뉴"><a href="../Main.html" target="_top">관제</a><a href="../Calls.html" target="_top">콜카드</a><a href="../Drivers.html" target="_top">드라이버<span class="n">5</span></a><a class="on" href="../Settlement.html" target="_top" aria-current="page">정산</a><a href="../Disputes.html" target="_top">검수<span class="n">4</span></a><a href="../Settings.html" target="_top">설정</a></nav>
+<div class="tr">
+<select aria-label="거점" style="width: 120px; height: 32px"><option>ICN 인천</option><option disabled>GMP 김포 (준비 중)</option></select>
+<button class="btn sm" type="button" aria-label="검색 열기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>검색 <span class="kbd">⌘K</span></button>
+<a class="btn pri sm" href="../Booking.html" target="_top"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>예약</a>
+<span class="av" role="img" aria-label="운영자 [이름]">운영</span>
+</div>
+</header>
+<div class="work"><div class="pane" style="flex-grow: 1">
+<div class="ph"><div style="display: flex; align-items: center; gap: 12px"><div class="seg" role="tablist" aria-label="정산 구분"><a class="sg on" href="../Settlement.html" target="_top" role="tab" aria-selected="true">기사 정산</a><a class="sg" href="../Overdue.html" target="_top" role="tab" aria-selected="false">미수 3</a><a class="sg" href="../Report.html" target="_top" role="tab" aria-selected="false">리포트</a></div><span class="cap" style="font-size: 13px">09.15 – 09.21 · 지급 예정 [지급일] · 기사 6명 · 39건</span></div>
+<div style="display: flex; gap: 8px"><select aria-label="주차" style="width: 160px; height: 32px"><option>09.15 – 09.21</option><option>09.08 – 09.14</option></select><button class="btn gh sm" type="button">정산서 내보내기</button><a class="btn pri sm" href="../SettleConfirm.html" target="_top">선택 3명 지급대행 요청</a></div></div>
+<div class="pb" style="gap: 12px">
+<div style="display: flex; gap: 8px; align-items: center">
+<div class="seg" role="tablist" aria-label="정산 상태"><button class="sg on" type="button" role="tab" aria-selected="true">전체 6</button><button class="sg" type="button" role="tab" aria-selected="false">검수중 2</button><button class="sg" type="button" role="tab" aria-selected="false">확정 3</button><button class="sg" type="button" role="tab" aria-selected="false">보류 1</button></div>
+<span style="flex-grow: 1"></span><span class="cap">우선예약요금·대기료는 전액 기사 몫, 수수료는 운임에만</span></div>
+<table>
+<thead><tr><th style="width: 32px"><input type="checkbox" aria-label="지급 가능 전체 선택" checked></th><th style="width: 36px"><span style="position: absolute; left: -9999px">펼치기</span></th><th>기사</th><th class="r">건수</th><th class="r">운임</th><th class="r">우선예약요금</th><th class="r">대기료</th><th class="r">수수료 2%</th><th class="r">조정</th><th class="r">지급액(원)</th><th>상태</th></tr></thead>
+<tbody><tr><td style="width: 32px"><input type="checkbox" aria-label="김○○ 지급 대상" checked></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="false" aria-label="김○○ 내역 펼치기" style="padding: 0 6px">▸</button></td><td style="font-weight: 600">김○○</td><td class="r">9</td><td class="r">701,400</td><td class="r">20,000</td><td class="r">0</td><td class="r">14,028</td><td class="r">0</td><td class="r" style="font-weight: 600">707,372</td><td>확정</td></tr><tr><td style="width: 32px"><input type="checkbox" aria-label="박○○ 지급 대상" checked></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="false" aria-label="박○○ 내역 펼치기" style="padding: 0 6px">▸</button></td><td style="font-weight: 600">박○○</td><td class="r">7</td><td class="r">548,200</td><td class="r">10,000</td><td class="r">5,000</td><td class="r">10,964</td><td class="r">0</td><td class="r" style="font-weight: 600">552,236</td><td>확정</td></tr><tr><td style="width: 32px"><input type="checkbox" aria-label="이○○ 선택 불가: 검수중" disabled title="검수중 — 지급 대상에서 제외"></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="false" aria-label="이○○ 내역 펼치기" style="padding: 0 6px">▸</button></td><td style="font-weight: 600">이○○</td><td class="r">8</td><td class="r">642,900</td><td class="r">10,000</td><td class="r">0</td><td class="r">12,858</td><td class="r">0</td><td class="r" style="font-weight: 600">640,042</td><td>검수중</td></tr><tr class="sel"><td style="width: 32px"><input type="checkbox" aria-label="최○○ 지급 대상" checked></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="true" aria-label="최○○ 내역 접기" style="padding: 0 6px">▾</button></td><td style="font-weight: 600">최○○</td><td class="r">6</td><td class="r">471,300</td><td class="r">0</td><td class="r">10,000</td><td class="r">9,426</td><td class="r">−4,200</td><td class="r" style="font-weight: 600">467,674</td><td>조정 반영</td></tr><tr class="sub"><td></td><td></td><td>09.16 · PX-0916-008</td><td class="r">1</td><td class="r">68,200</td><td class="r">0</td><td class="r">0</td><td class="r"></td><td class="r"></td><td class="r"></td><td>인천 T1 → 홍대</td></tr><tr class="sub"><td></td><td></td><td>09.17 · PX-0917-015</td><td class="r">1</td><td class="r">81,900</td><td class="r">0</td><td class="r">0</td><td class="r"></td><td class="r"></td><td class="r"></td><td>인천 T2 → 강남</td></tr><tr class="sub"><td></td><td></td><td>09.18 · PX-0918-004</td><td class="r">1</td><td class="r">76,600</td><td class="r">0</td><td class="r">10,000</td><td class="r"></td><td class="r"></td><td class="r"></td><td>인천 T1 → 명동</td></tr><tr class="sub"><td></td><td></td><td>09.19 · PX-0919-022</td><td class="r">1</td><td class="r">72,400</td><td class="r">0</td><td class="r">0</td><td class="r"></td><td class="r"></td><td class="r"></td><td>인천 T1 → 종로</td></tr><tr class="sub"><td></td><td></td><td>09.20 · PX-0920-011</td><td class="r">1</td><td class="r">94,600</td><td class="r">0</td><td class="r">0</td><td class="r"></td><td class="r"></td><td class="r"></td><td>인천 T2 → 잠실</td></tr><tr class="sub"><td></td><td></td><td>09.21 · PX-0921-017</td><td class="r">1</td><td class="r">77,600</td><td class="r">0</td><td class="r">0</td><td class="r"></td><td class="r">−4,200</td><td class="r"></td><td>인천 T1 → 홍대 · 검수 판정 −4,200</td></tr><tr><td style="width: 32px"><input type="checkbox" aria-label="정○○ 선택 불가: 보류 · 분쟁" disabled title="보류 · 분쟁 — 지급 대상에서 제외"></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="false" aria-label="정○○ 내역 펼치기" style="padding: 0 6px">▸</button></td><td style="font-weight: 600">정○○</td><td class="r">5</td><td class="r">402,800</td><td class="r">10,000</td><td class="r">0</td><td class="r">8,056</td><td class="r">0</td><td class="r" style="font-weight: 600">404,744</td><td><span class="bdg risk">보류 · 분쟁 1</span></td></tr><tr><td style="width: 32px"><input type="checkbox" aria-label="한○○ 선택 불가: 검수중" disabled title="검수중 — 지급 대상에서 제외"></td><td style="width: 36px"><button class="btn gh sm" type="button" aria-expanded="false" aria-label="한○○ 내역 펼치기" style="padding: 0 6px">▸</button></td><td style="font-weight: 600">한○○</td><td class="r">4</td><td class="r">318,600</td><td class="r">0</td><td class="r">0</td><td class="r">6,372</td><td class="r">0</td><td class="r" style="font-weight: 600">312,228</td><td>검수중</td></tr><tr><td></td><td></td><td style="font-weight: 600">합계</td><td class="r" style="font-weight: 600">39</td><td class="r" style="font-weight: 600">3,085,200</td><td class="r">50,000</td><td class="r">15,000</td><td class="r">61,704</td><td class="r">−4,200</td><td class="r" style="font-weight: 600">3,084,296</td><td></td></tr></tbody>
+</table>
+<span class="cap">선택 3명 · 1,727,282원. 검수중·보류 기사는 선택할 수 없고, 서버도 요청을 거부합니다. 요청 후 조정은 다음 주차에 반영됩니다.</span>
+</div>
+</div></div>
+
+</div>
+
+</body>
+</html>
