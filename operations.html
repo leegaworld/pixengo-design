@@ -80,6 +80,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 .stg .term{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent);font-size:13px}
 .stg .done{margin:12px 0 0;font-size:13px}
 .stg .pend{margin:6px 0 0;font-size:13px;color:var(--cap)}
+h3.ih{font-size:14px;margin:20px 0 6px}
 @media (max-width:700px){.stgs{grid-template-columns:1fr}.stg ul.fl li{grid-template-columns:1fr;gap:2px}}
 </style>
 </head>
@@ -117,6 +118,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>편명 조회 — 며칠 앞 예약이라 조회되지 않으면 편명 · 예정 시각을 받아 적고 '도착 확인 필요'로 둡니다.</li><li>목적지 검색 — 자체 호텔DB → 네이버 → 구글 순서로 찾습니다.</li><li>인원 · 캐리어로 차량에 들어가는지 확인합니다.</li><li>견적 확인 — 운임 + 서비스료(5,000원 + 5%), 지금 낼 예약금 30%.</li><li>'생성 · 링크 발송'을 누릅니다. 요율은 이 순간 값으로 콜카드에 복사돼, 나중에 요금정책이 바뀌어도 이 예약은 그대로입니다.</li></ol>
 <p class="done"><b>끝나면</b> 콜카드가 결제대기 상태로 생기고, 링크를 어느 채널로 언제 보냈는지 기록됩니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 링크 유효 시간 · 예약금 반올림(O-07) · 조회 안 되는 편명 처리(O-11) · 알림톡 승인 전 발송 경로(O-05)</p>
+
 </section>
 <section class="stg" id="stage-2">
 <header><span class="no">2</span><h3>예약금 결제</h3><span class="pc">P-02</span><span class="sc"><a href="Calls.html">02 콜카드 · 큐 + 상세</a> · <a href="Main.html">01 관제 · 도착 타임라인 + 배정</a></span></header>
@@ -127,6 +129,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>관제 화면 '결제대기' 필터로 아직 안 낸 콜을 봅니다.</li><li>게스트가 '결제했어요' 캡처를 보내도 웹훅이 오기 전에는 확정이 아닙니다. PG 거래를 조회해 확인하고 게스트에게는 '확인 중'이라고 답합니다.</li><li>만료되면 콜은 '링크 만료'로 끝납니다. 게스트가 원하면 링크를 다시 만듭니다.</li></ol>
 <p class="done"><b>끝나면</b> 웹훅으로 결제가 확정돼 배차대기로 넘어가거나, 링크 만료로 끝납니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 재안내 시점 · 횟수, 링크 재생성 방식(O-08)</p>
+
 </section>
 <section class="stg" id="stage-3">
 <header><span class="no">3</span><h3>배정</h3><span class="pc">P-03</span><span class="sc"><a href="Main.html">01 관제 · 도착 타임라인 + 배정</a> · <a href="Return.html">11 관제 · 기사 반납 → 재배정</a> · <a href="Settings.html">16 설정 · 거점 운영값</a></span></header>
@@ -137,6 +140,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>관제 화면 오른쪽 배정 패널에서 후보 기사를 봅니다. 추천 순서는 참고용입니다.</li><li>화면이 기사 승인 여부 · 차량에 인원과 짐이 들어가는지 · 다른 콜과 시간이 겹치는지를 검사합니다.</li><li>기사 수락을 받은 뒤 배정하고 배정 사유를 적습니다.</li><li>배정된 기사가 나중에 반납하면 같은 콜카드가 배차대기로 돌아오고, 이 단계를 다시 합니다.</li></ol>
 <p class="done"><b>끝나면</b> 배차완료 상태가 되고 게스트에게 기사 안내가 전달됩니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 반납 페널티(D-12) · 끝내 기사를 못 구했을 때 미배차 확정 · 환불(D-08a)</p>
+
 </section>
 <section class="stg" id="stage-4">
 <header><span class="no">4</span><h3>T-[24]h 점검</h3><span class="pc">P-04</span><span class="sc"><a href="Main.html">01 관제 · 도착 타임라인 + 배정</a> · <a href="Delay.html">08 관제 · 시각 변경 · 대기</a></span></header>
@@ -147,6 +151,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>점검 세 가지: 결제가 끝났나 · 기사가 정해졌나 · 게스트에게 안내가 닿는 채널이 살아 있나.</li><li>결제가 안 됐으면 2단계, 기사가 없으면 3단계로 돌아갑니다.</li><li>연락이 닿지 않으면 '연락 실패' 작업으로 올려 담당자와 마감을 정합니다.</li></ol>
 <p class="done"><b>끝나면</b> 점검 기록이 남고, 걸린 문제는 담당자가 있는 작업으로 넘어갑니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 점검 시점 [24]시간(O-09)</p>
+
 </section>
 <section class="stg" id="stage-5">
 <header><span class="no">5</span><h3>T-[3]h · 비행 중</h3><span class="pc">P-04 · P-05</span><span class="sc"><a href="Main.html">01 관제 · 도착 타임라인 + 배정</a> · <a href="Delay.html">08 관제 · 시각 변경 · 대기</a> · <a href="Return.html">11 관제 · 기사 반납 → 재배정</a></span></header>
@@ -157,6 +162,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li><b>미배차 위험 해소:</b> 관제 화면 '미배차 위험' 필터를 엽니다(도착 [3]시간 전인데 기사 없는 콜, 빨간 테두리).</li><li>배정 패널의 후보 기사에게 차례로 전화해 수락을 받고 강제배차합니다.</li><li>아무도 안 되면 시도 기록을 남기고 계속 찾습니다. '미배차 확정(전액 환불)'은 정책 결정 전(D-08a)이라 버튼이 비활성입니다. 포기로 끝내지 않습니다.</li><li><b>시각 변경:</b> 기사 확인을 받은 뒤 '변경 확인'을 눌러 표시를 해제합니다.</li></ol>
 <p class="done"><b>끝나면</b> 도착 전에 모든 콜에 기사가 있고, 바뀐 시각을 기사가 알고 있습니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 미배차 위험 기준 [3]시간(O-09) · 재안내 기준 [분] · 미배차 확정(D-08a)</p>
+<p class="pend"><a href="#idea-unmatched">경보가 늦을 수 있는 문제와 개선 아이디어 → 8장</a></p>
 </section>
 <section class="stg" id="stage-6">
 <header><span class="no">6</span><h3>착륙 · 픽업</h3><span class="pc">P-06</span><span class="sc"><a href="Delay.html">08 관제 · 시각 변경 · 대기</a> · <a href="NoShow.html">09 관제 · 노쇼 확인</a></span></header>
@@ -167,6 +173,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 
 <p class="done"><b>끝나면</b> 게스트가 타면 탑승 상태가 되고 운행 시작 시각(start_trip_at)이 기록됩니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 무료 대기 기준(D-01) · 연락 횟수(D-02) · 70/30 배분(D-03) · 대기 연장(D-11)</p>
+
 </section>
 <section class="stg" id="stage-7">
 <header><span class="no">7</span><h3>운행</h3><span class="sc"><a href="Main.html">01 관제 · 도착 타임라인 + 배정</a> · <a href="Calls.html">02 콜카드 · 큐 + 상세</a></span></header>
@@ -177,6 +184,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 
 <p class="done"><b>끝나면</b> 기사가 하차 직전 확정총액을 입력하면 잔액결제대기로 넘어갑니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 운행 중 이상 판단 기준(O-12)</p>
+
 </section>
 <section class="stg" id="stage-8">
 <header><span class="no">8</span><h3>잔액 결제</h3><span class="pc">P-07</span><span class="sc"><a href="Balance.html">20 관제 · 잔액 청구 (QR 폴백)</a> · <a href="Calls.html">02 콜카드 · 큐 + 상세</a></span></header>
@@ -187,6 +195,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>관제 화면 '잔액 청구' 필터에서 오래 걸리는 콜을 봅니다.</li><li>기사에게 QR을 다시 띄우도록 요청하거나 게스트에게 대체 링크를 보냅니다. 모든 시도는 같은 잔액 청구 한 건에 묶입니다.</li><li>끝내 결제되지 않으면 미수로 넘기는데, 기준이 정해지지 않아(D-10) 지금은 비활성입니다.</li></ol>
 <p class="done"><b>끝나면</b> 결제 확정과 운행 종료가 둘 다 확인되면 운행완료가 됩니다(D-09).</p>
 <p class="pend"><span class="st wait">결정 대기</span> 완료 조건의 선후(D-09) · 미수 전환 기준(D-10) · Phase 0 잔액 결제 경로(O-04)</p>
+
 </section>
 <section class="stg" id="stage-9">
 <header><span class="no">9</span><h3>운행 후</h3><span class="pc">P-08 · P-09</span><span class="sc"><a href="Disputes.html">06 검수 · 분쟁</a> · <a href="Overdue.html">10 정산 · 미수</a></span></header>
@@ -197,6 +206,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>예약 때 예상 금액 · 확정 금액, 예상 경로 · 실제 경로를 나란히 비교합니다.</li><li>판정하면 게스트 환불과 기사 정산 조정이 어떻게 되는지 미리 봅니다. 판정 저장은 정책 결정 전(D-08b)이라 비활성입니다.</li><li>미수는 유형을 자동으로 나누지 않고 '미분류'로 받습니다. 기사 현장 수금 · 손실 처리는 결정 전입니다.</li></ol>
 <p class="done"><b>끝나면</b> 판정과 조정이 기록되거나, 미수가 회수됩니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 운행 후 조정(D-08b) · 미수 유형 · 지급 영향 · 현장 수금(D-04~06) · 분쟁 접수 기한(O-10)</p>
+
 </section>
 <section class="stg" id="stage-10">
 <header><span class="no">10</span><h3>주간 정산</h3><span class="pc">P-12</span><span class="sc"><a href="Settlement.html">05 정산 · 행 펼침</a> · <a href="SettleConfirm.html">21 정산 · 지급대행 확인</a> · <a href="Report.html">15 정산 · 리포트</a></span></header>
@@ -207,6 +217,7 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <h4>운영자가 하는 일</h4><ol><li>마감 전에 검수 중 · 분쟁 · 미수 건을 가능한 만큼 정리합니다.</li><li>요청했다고 지급이 끝난 것이 아닙니다. 기사별 결과를 확인하고 실패한 기사는 다시 요청합니다.</li></ol>
 <p class="done"><b>끝나면</b> 지급 가능한 기사 모두의 지급 결과를 확인하고, 빠진 기사에게 안내를 보냅니다.</p>
 <p class="pend"><span class="st wait">결정 대기</span> 정산완료로 바꾸는 시점(D-07) · 미수의 지급 영향(D-05) · 마감 요일 · 지급일(O-06)</p>
+
 </section></div>
 
 <h2 style="font-size:16px;margin:32px 0 8px">3. 콜카드 상태와 운영 개입</h2>
@@ -238,6 +249,31 @@ figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
 <table><thead><tr><th>번호</th><th>결정할 것</th></tr></thead><tbody>
 <tr><td class="id">O-01</td><td>운영 시간과 운영 시간 밖 도착 콜 처리</td></tr><tr><td class="id">O-02</td><td>역할별 인원 · 교대 방식</td></tr><tr><td class="id">O-03</td><td>금전 · 제재 동작의 실행자 / 승인자 분리</td></tr><tr><td class="id">O-04</td><td>Phase 0 잔액 결제 경로 (기사 앱 QR 없음)</td></tr><tr><td class="id">O-05</td><td>알림톡 승인 전 안내 채널, 안내 시점 ↔ 템플릿</td></tr><tr><td class="id">O-06</td><td>정산 마감 요일 · 지급일, Phase 0 수기 정산</td></tr><tr><td class="id">O-07</td><td>예약금 원 단위 반올림</td></tr><tr><td class="id">O-08</td><td>결제링크 유효 시간 · 재안내 횟수 · 재생성 방식</td></tr><tr><td class="id">O-09</td><td>도착 전 점검 시점과 미배차 위험 기준</td></tr><tr><td class="id">O-10</td><td>응답 목표 시간과 분쟁 접수 기한</td></tr><tr><td class="id">O-11</td><td>도착편 조회 가능 시점과 수기 편명 입력 범위</td></tr><tr><td class="id">O-12</td><td>운행 중 이상 판단 기준(예상 소요 초과 등)과 연락 방식</td></tr>
 </tbody></table>
+
+<h2 style="font-size:16px;margin:32px 0 8px" id="idea-unmatched">8. 아이디어 — 미배차 위험 대응 개선</h2>
+
+<p class="note"><span class="st wait">채택 전 아이디어</span> 덱에 없는 제안입니다. 채택하면 운영 결정 O-09(점검 시점 · 미배차 위험 기준) 등에 반영하고, 그 전까지 시안과 절차는 지금 기준(도착 T-[3]h)을 따릅니다.</p>
+<h3 class="ih">문제 — 경보가 너무 늦을 수 있다</h3>
+<p class="lead">지금 경보는 <b>도착</b> [3]시간 전인데, 중국발 인천행 비행은 대략 1.5~3시간입니다. 그러면 경보 시점은 게스트 출발 1.5시간 전 ~ 출발 시각 사이이고, 비행이 길거나 출발이 당겨지면 이미 기내입니다. 게스트는 공항 수속 · 탑승 중이라 연락이 닿아도 다른 수단을 찾을 시간이 거의 없습니다(덱 5장 "사후 수습 불가"). 아래 그림은 비행 2시간 30분 예시(경보가 출발 30분 전)이며 축척은 임의입니다.</p>
+<figure class="dg"><svg viewBox="0 0 1120 220" role="img" aria-label="미배차 위험 경보 시점: 지금 기준인 도착 3시간 전은 게스트가 이미 비행 중일 수 있어, 출발 전 1차 경보를 제안" font-family="inherit"><defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8A8580"/></marker><marker id="a5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#B98A00"/></marker></defs><line x1="100" y1="120" x2="250" y2="120" stroke="#3A3737" stroke-width="1.5"/><text x="275" y="125.8" font-size="16" font-weight="400" fill="#8A8580" text-anchor="middle">≈</text><line x1="300" y1="120" x2="1080" y2="120" stroke="#3A3737" stroke-width="1.5"/><line x1="160" y1="114" x2="160" y2="126" stroke="#3A3737" stroke-width="1.5"/><text x="160" y="148.3" font-size="12" font-weight="600" fill="#2B2928" text-anchor="middle">예약 점검</text><text x="160" y="102.3" font-size="12" font-weight="400" fill="#716C67" text-anchor="middle">T-[24]h</text><line x1="590" y1="114" x2="590" y2="126" stroke="#3A3737" stroke-width="1.5"/><text x="590" y="148.3" font-size="12" font-weight="600" fill="#2B2928" text-anchor="middle">게스트 출발</text><text x="590" y="102.3" font-size="12" font-weight="400" fill="#716C67" text-anchor="middle">T-2.5h</text><line x1="1040" y1="114" x2="1040" y2="126" stroke="#3A3737" stroke-width="1.5"/><text x="1040" y="148.3" font-size="12" font-weight="600" fill="#2B2928" text-anchor="middle">도착</text><text x="1040" y="102.3" font-size="12" font-weight="400" fill="#716C67" text-anchor="middle">T-0</text><line x1="100" y1="182" x2="586" y2="182" stroke="#8A8580" stroke-width="1.5"/><text x="345" y="202.3" font-size="12" font-weight="400" fill="#716C67" text-anchor="middle">게스트에게 연락이 닿는 시간 — 미리 알리고 대안을 찾을 수 있음</text><rect x="594" y="174" width="442" height="16" rx="3" fill="none" stroke="#8A8580" stroke-width="1" stroke-dasharray="5 4"/><text x="815" y="208.3" font-size="12" font-weight="400" fill="#716C67" text-anchor="middle">비행 중 — 연락 불가</text><line x1="210" y1="52" x2="210" y2="110" stroke="#8A8580" stroke-dasharray="2 3"/><circle cx="210" cy="120" r="8" fill="#F2B100" stroke="#B98A00" stroke-width="2"/><text x="210" y="22.3" font-size="12" font-weight="700" fill="#2B2928" text-anchor="middle">1차 경보 (제안)</text><text x="210" y="38.3" font-size="12" font-weight="400" fill="#2B2928" text-anchor="middle">출발 전 [n]h · 미배정이면</text><line x1="500" y1="52" x2="500" y2="110" stroke="#8A8580" stroke-dasharray="2 3"/><circle cx="500" cy="120" r="8" fill="#FFFFFF" stroke="#3A3737" stroke-width="2"/><text x="500" y="22.3" font-size="12" font-weight="700" fill="#2B2928" text-anchor="middle">2차 경보 (지금 기준)</text><text x="500" y="38.3" font-size="12" font-weight="400" fill="#2B2928" text-anchor="middle">도착 T-[3]h · 출발 직전 또는 기내</text></svg></figure>
+<h3 class="ih">제안 1 — 경보를 두 단계로</h3>
+<table><thead><tr><th>경보</th><th>시점</th><th>운영자가 할 일</th></tr></thead><tbody>
+<tr><td class="id">1차 (신설 제안)</td><td>게스트 출발 전 [n]시간, 예: T-[24]h 점검 때 미배정</td><td>배정에 집중. 끝내 안 되면 <b>게스트가 출발하기 전에</b> 상황을 알리고 환불 · 대안을 안내</td></tr>
+<tr><td class="id">2차 (지금 기준)</td><td>도착 T-[3]h 미배정</td><td>마지막 방어선. 관제 '미배차 위험' 필터 → 후보 기사 전화 → 강제배차</td></tr>
+</tbody></table>
+<h3 class="ih">제안 2 — 게스트 출발 시각 확보</h3>
+<p class="lead">지금 연동은 도착편 조회뿐이라 출발 시각을 알 수 없습니다. 둘 중 하나를 정해야 1차 경보를 계산할 수 있습니다. ① 예약할 때 출발 공항 · 출발 시각을 함께 받는다 ② 출발편 정보도 조회한다(연동 추가 필요).</p>
+<h3 class="ih">제안 3 — 경보 때 쓸 수 있는 수단 늘리기</h3>
+<table><thead><tr><th>수단</th><th>지금</th><th>쓰려면</th></tr></thead><tbody>
+<tr><td class="id">강제배차</td><td>있음 — <a href="Main.html">01 관제 · 도착 타임라인 + 배정</a> 배정 패널, <a href="Return.html">11 관제 · 기사 반납 → 재배정</a></td><td>—</td></tr>
+<tr><td class="id">기사 추가 보상</td><td>덱에 "우선예약요금 전액 기사 배분"만 있고, 운영자가 급한 콜에 붙이는 수단인지 정의 없음</td><td>금전 정책 결정(누가 부담 · 금액 · 적용 조건)</td></tr>
+<tr><td class="id">제휴 운영사로 넘기기</td><td>Phase 3 구상 — <a href="Partners.html">18 [Phase 3] 제휴 운영사</a></td><td>계약 · Phase 3</td></tr>
+<tr><td class="id">법인택시</td><td>MVP 제외(덱 4장)</td><td>범위 변경</td></tr>
+<tr><td class="id">끝내 실패 시 종료</td><td>미배차 확정 · 전액 환불 버튼 비활성</td><td>D-08a 결정. 1차 경보가 있으면 출발 전 안내 가능</td></tr>
+</tbody></table>
+<h3 class="ih">제안 4 — 경보를 기사 모집으로 되돌리기</h3>
+<p class="lead">덱의 결론대로 근본 방어는 기사 풀 확보입니다. 미배차 위험이 뜬 날짜 · 시간대 · 터미널 · 목적지를 월간 검토에서 모아, 기사 모집과 근무 요청에 반영합니다(월간 지표 정의는 공백 G-05).</p>
+
 
 </main>
 </div>
