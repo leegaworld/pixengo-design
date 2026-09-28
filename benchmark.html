@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>벤치마킹 · 경쟁 분석 점검표 · Pixengo 어드민 시안</title>
+<style>
+:root{--bg:#FFFFFF;--fg:#2B2928;--cap:#716C67;--subtle:#8A8580;--line:#E7E3DE;--surface:#FAF8F4;--head:#3A3737;--gold:#F2B100;--accent:#FFF6D9;--sec:#F4F1ED;--risk:#B42318}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-variant-numeric:tabular-nums}
+a{color:var(--fg)}a:hover{text-decoration-thickness:2px}
+.layout{display:flex;min-height:100vh}
+.sn{width:248px;flex-shrink:0;border-right:1px solid var(--line);background:var(--surface);padding:20px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sn .brand{display:block;padding:0 10px 16px;font-size:16px;font-weight:700;text-decoration:none}
+.sn .brand span{display:block;font-size:12px;font-weight:400;color:var(--cap)}
+.sn h2{margin:16px 10px 4px;font-size:12px;font-weight:600;color:var(--cap)}
+.sn a.it{display:flex;gap:8px;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:13px;line-height:1.4}
+.sn a.it .n{color:var(--cap);width:22px;flex-shrink:0}
+.sn a.it:hover{background:var(--sec)}
+.sn a.it[aria-current]{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line);font-weight:600}
+.sn a.it[aria-current] .n{color:var(--fg)}
+.main{flex-grow:1;min-width:0;padding:24px 32px 64px}
+.crumb{font-size:12px;color:var(--cap)}
+h1{margin:2px 0 4px;font-size:24px;line-height:1.3}
+.purpose{margin:0;color:var(--fg);max-width:880px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 12px}
+.bar .grow{flex-grow:1}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 12px;border:1px solid #D9D4CE;border-radius:6px;background:#FFFFFF;font:inherit;font-size:13px;color:var(--fg);text-decoration:none;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--sec);border-color:var(--sec);font-weight:600}
+details.req{border:1px solid var(--line);border-radius:8px;margin:0 0 16px}
+details.req summary{cursor:pointer;padding:10px 14px;font-weight:600;list-style-position:inside}
+details.req .body{padding:0 14px 14px}
+.note{margin:0 0 10px;color:var(--cap);font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--head);color:#FFFFFF;font-weight:500;font-size:12px;text-align:left;padding:8px 10px;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.id{white-space:nowrap;font-weight:600}
+td.sl{white-space:nowrap;color:var(--cap)}
+.st{display:inline-block;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap;background:var(--sec)}
+.st.wait,.st.partial{background:var(--accent);box-shadow:inset 0 0 0 1px var(--gold)}
+.st.server{background:#FFFFFF;box-shadow:inset 0 0 0 1px #D9D4CE}
+.st.none{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--risk);color:var(--risk)}
+.dec{margin:10px 0 0;font-size:13px}
+.zoom{font-size:13px;min-width:44px;text-align:center;font-weight:600}
+.stage{position:relative;overflow:hidden;scroll-margin-top:8px;margin:0 auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.stage.actual{overflow:auto}
+.stage iframe{display:block;border:0;width:1440px;transform-origin:0 0;background:#FFFFFF}
+.pn{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:13px}
+.lead{max-width:880px}
+.meta td:first-child{width:120px;color:var(--cap)}
+@media (max-width: 900px){.layout{display:block}.sn{position:static;width:auto;height:auto;border-right:0;border-bottom:1px solid var(--line)}.main{padding:16px}}
+
+figure.dg{margin:8px 0 0;border:1px solid var(--line);border-radius:8px;padding:16px;background:#FFFFFF;overflow-x:auto}
+figure.dg svg{display:block;width:100%;min-width:960px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;margin:8px 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg{display:inline-block;width:22px;height:14px;border-radius:3px;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--line)}
+.lg.op{background:var(--surface);box-shadow:inset 0 0 0 1.5px var(--head)}
+.lg.gate{box-shadow:none;border:1.5px dashed #B98A00}
+.lg.zone{box-shadow:inset 0 0 0 2px var(--gold)}
+.gl{margin:16px 0 0;border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--surface)}
+.gl h3,.stg h3{margin:0;font-size:15px}
+.gl dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:8px 24px;margin:10px 0 0}
+.gl dt{font-weight:600;font-size:13px}.gl dd{margin:0;font-size:13px}
+.stgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:16px;margin-top:16px}
+.stg{border:1px solid var(--line);border-radius:8px;padding:16px 18px;scroll-margin-top:16px}
+.stg:target{box-shadow:0 0 0 2px var(--gold)}
+.stg header{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.stg .no{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:4px;background:var(--head);color:#FFFFFF;font-size:12px;font-weight:600}
+.stg .pc{font-size:12px;color:var(--cap)}
+.stg .sc{margin-left:auto;font-size:12px}
+.stg .what{margin:10px 0 0}
+.stg h4{margin:14px 0 6px;font-size:12px;font-weight:600;color:var(--cap)}
+.stg ul.fl{list-style:none;margin:0;padding:0;font-size:13px}
+.stg ul.fl li{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.stg ul.fl li:first-child{border-top:0}
+.stg .who{white-space:nowrap}
+.stg ol{margin:0;padding-left:20px;font-size:13px}.stg ol li{margin:3px 0}
+.stg .term{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent);font-size:13px}
+.stg .done{margin:12px 0 0;font-size:13px}
+.stg .pend{margin:6px 0 0;font-size:13px;color:var(--cap)}
+h3.ih{font-size:14px;margin:20px 0 6px}
+@media (max-width:700px){.stgs{grid-template-columns:1fr}.stg ul.fl li{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sn" aria-label="시안 메뉴"><a class="brand" href="index.html">Pixengo 어드민 시안<span>v3 · 정적 HTML · 예시 데이터</span></a><h2>시작</h2><a class="it" href="index.html"><span class="n"></span><span>홈 · 화면 목록</span></a><a class="it" href="requirements.html"><span class="n"></span><span>온보딩 요구사항 대조표</span></a><a class="it" href="operations.html"><span class="n"></span><span>운영 흐름도</span></a><a class="it" href="benchmark.html" aria-current="page"><span class="n"></span><span>벤치마킹 · 경쟁 분석</span></a><h2>관제</h2><a class="it" href="Main.html"><span class="n">01</span><span>관제 · 도착 타임라인 + 배정</span></a><a class="it" href="Delay.html"><span class="n">08</span><span>관제 · 시각 변경 · 대기</span></a><a class="it" href="NoShow.html"><span class="n">09</span><span>관제 · 노쇼 확인</span></a><a class="it" href="Return.html"><span class="n">11</span><span>관제 · 기사 반납 → 재배정</span></a><a class="it" href="Balance.html"><span class="n">20</span><span>관제 · 잔액 청구 (QR 폴백)</span></a><h2>콜카드</h2><a class="it" href="Calls.html"><span class="n">02</span><span>콜카드 · 큐 + 상세</span></a><a class="it" href="Booking.html"><span class="n">03</span><span>새 예약 · Sheet</span></a><a class="it" href="CallsTable.html"><span class="n">12</span><span>콜카드 · 표 보기 · 일괄 처리</span></a><a class="it" href="Notify.html"><span class="n">13</span><span>콜카드 · 알림 발송 · 템플릿</span></a><a class="it" href="CancelConfirm.html"><span class="n">22</span><span>콜카드 · 취소 확인</span></a><h2>드라이버</h2><a class="it" href="Drivers.html"><span class="n">04</span><span>드라이버 심사</span></a><a class="it" href="DriverProfile.html"><span class="n">14</span><span>드라이버 · 서류 만료 · 페널티</span></a><a class="it" href="RejectConfirm.html"><span class="n">24</span><span>드라이버 · 반려 확인</span></a><h2>정산</h2><a class="it" href="Settlement.html"><span class="n">05</span><span>정산 · 행 펼침</span></a><a class="it" href="Overdue.html"><span class="n">10</span><span>정산 · 미수</span></a><a class="it" href="Report.html"><span class="n">15</span><span>정산 · 리포트</span></a><a class="it" href="SettleConfirm.html"><span class="n">21</span><span>정산 · 지급대행 확인</span></a><h2>검수</h2><a class="it" href="Disputes.html"><span class="n">06</span><span>검수 · 분쟁</span></a><h2>설정</h2><a class="it" href="Settings.html"><span class="n">16</span><span>설정 · 거점 운영값</span></a><a class="it" href="PricePolicy.html"><span class="n">23</span><span>설정 · 요금정책 버전</span></a><h2>공통</h2><a class="it" href="States.html"><span class="n">17</span><span>상태 · ⌘K</span></a><h2>Phase 3</h2><a class="it" href="Accounts.html"><span class="n">19</span><span>[Phase 3] 채널 계정 · 기업 의전</span></a><h2>벤치마킹 아이디어</h2><a class="it" href="Partners.html"><span class="n">18</span><span>[벤치마킹 아이디어] 제휴 운영사</span></a></nav>
+<main class="main">
+
+<div class="crumb">시작 · 온보딩 덱 대조</div>
+<h1>벤치마킹 · 경쟁 분석 점검표</h1>
+<div class="bm">
+<p class="lead">개발자 온보딩 덱(PRD v0.22)의 주장과 우리가 조사한 벤치마킹·경쟁 정보가 어긋나거나 확인이 필요한 곳을 한 장씩 나란히 놓았습니다. 항목마다 확인할 것을 체크하고, 결과(덱 유지 / 덱 수정 필요)와 메모를 남기세요.</p>
+<table class="meta"><tbody>
+<tr><td>작성일</td><td>2026-09-28</td></tr>
+<tr><td>작성자</td><td>[작성자]</td></tr>
+<tr><td>보고 대상</td><td>[보고 대상]</td></tr>
+<tr><td>결정 기한</td><td>[결정 기한] — 덱 3장 근거 재검토와 D-nn·O-nn 결정 전</td></tr>
+</tbody></table>
+<p class="note">근거: <code>docs/competitive-analysis.md</code>(2026-09-28, 대체 서비스), <code>docs/admin-benchmark-and-ops-rationale.md</code>(2026-09-25, 운영툴 Limo Anywhere · Onfleet · Blacklane). 조사 결과는 대부분 <b>검색 요약 기준</b>이라 확정 사실이 아닙니다. 체크·결과·메모는 이 브라우저에만 저장됩니다. 팀과 합치려면 <b>결과를 Markdown으로 복사</b>해 문서에 붙이세요.</p>
+
+<div class="bar" role="toolbar" aria-label="보기와 내보내기">
+<span class="prog" aria-live="polite">확인 완료 <b data-done>0</b> / <span data-total>0</span><span class="meter" aria-hidden="true"><i data-meter style="width:0"></i></span></span>
+<span class="grow"></span>
+<button class="btn" type="button" data-f="all" aria-pressed="true">전체</button>
+<button class="btn" type="button" data-f="redo" aria-pressed="false">재검토 필요</button>
+<button class="btn" type="button" data-f="check" aria-pressed="false">확인 필요</button>
+<button class="btn" type="button" data-f="dec" aria-pressed="false">정책 결정 필요</button>
+<button class="btn" type="button" data-f="open" aria-pressed="false">아직 확인 안 함</button>
+<button class="btn primary" type="button" data-export>결과를 Markdown으로 복사</button>
+<button class="btn" type="button" data-reset>초기화</button>
+</div>
+
+<div id="list"></div>
+</div>
+</main>
+</div>
+<style>.bm{--bg:#FFFFFF;--fg:#2B2928;--cap:#716C67;--subtle:#8A8580;--line:#E7E3DE;--input:#D9D4CE;--surface:#FAF8F4;--sec:#F4F1ED;--head:#3A3737;--gold:#F2B100;--deep:#B98A00;--accent:#FFF6D9;--risk:#B42318;--ok:#2F7D4F}
+.bm .lead{margin:0;max-width:900px}
+.bm .meta{border-collapse:collapse;margin:16px 0 0;font-size:13px}
+.bm .meta td{padding:4px 16px 4px 0;border-bottom:1px solid var(--line)}
+.bm .meta td:first-child{color:var(--cap);width:96px}
+.bm .note{color:var(--cap);font-size:13px;margin:12px 0 0;max-width:900px}
+.bm .bar{position:sticky;top:0;z-index:2;background:var(--bg);display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;margin-top:16px;border-bottom:1px solid var(--line)}
+.bm .bar .grow{flex-grow:1}
+.bm .btn{display:inline-flex;align-items:center;height:32px;padding:0 12px;border:1px solid var(--input);border-radius:6px;background:#FFFFFF;font:inherit;font-size:13px;color:var(--fg);cursor:pointer}
+.bm .btn[aria-pressed="true"]{background:var(--sec);border-color:var(--sec);font-weight:600}
+.bm .btn.primary{background:var(--gold);border-color:var(--gold);font-weight:600}
+.bm .prog{font-size:13px}
+.bm .prog b{font-size:15px}
+.bm .meter{display:inline-block;width:160px;height:8px;border-radius:4px;background:var(--sec);vertical-align:middle;margin-left:8px;overflow:hidden}
+.bm .meter i{display:block;height:100%;background:var(--gold)}
+.bm h2{font-size:16px;margin:28px 0 4px}
+.bm .sub{color:var(--cap);font-size:13px;margin:0 0 12px}
+.bm .item{border:1px solid var(--line);border-radius:8px;margin:12px 0;overflow:hidden}
+.bm .item[data-state="done-keep"],.bm .item[data-state="done-change"]{background:var(--surface)}
+.bm .ih{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.bm .ih .id{font-weight:700;font-size:13px;color:var(--cap)}
+.bm .ih h3{margin:0;font-size:15px}
+.bm .ih .grow{flex-grow:1}
+.bm .tag{display:inline-block;padding:0 6px;border-radius:4px;font-size:12px;font-weight:500;white-space:nowrap;line-height:20px}
+.bm .tag.redo{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--risk);color:var(--risk)}
+.bm .tag.check{background:var(--accent);box-shadow:inset 0 0 0 1px var(--gold)}
+.bm .tag.keep{background:var(--sec)}
+.bm .tag.dec{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--input)}
+.bm .cmp{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.bm .cmp>div{padding:12px 16px}
+.bm .cmp>div+div{border-left:1px solid var(--line)}
+.bm .cmp h4,.bm .foot h4{margin:0 0 6px;font-size:12px;font-weight:600;color:var(--cap)}
+.bm .cmp p{margin:0}
+.bm .cmp ul{margin:0;padding-left:18px}
+.bm .cmp .src{margin-top:6px;font-size:12px;color:var(--cap)}
+.bm .gap{padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.bm .gap b{margin-right:4px}
+.bm .foot{display:grid;grid-template-columns:1.2fr 1fr;gap:0}
+.bm .foot>div{padding:12px 16px}
+.bm .foot>div+div{border-left:1px solid var(--line)}
+.bm .foot label.ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;padding:3px 0;cursor:pointer}
+.bm .foot label.ck input{margin-top:4px;accent-color:var(--deep)}
+.bm .foot select,.bm .foot textarea{width:100%;font:inherit;font-size:13px;color:var(--fg);border:1px solid var(--input);border-radius:6px;background:#FFFFFF}
+.bm .foot select{height:36px;padding:0 10px}
+.bm .foot textarea{min-height:72px;padding:8px 10px;margin-top:8px;resize:vertical}
+.bm .foot select:focus,.bm .foot textarea:focus,.bm .btn:focus-visible,.bm .foot input:focus-visible{outline:2px solid var(--deep);outline-offset:1px}
+.bm .rel{font-size:12px;color:var(--cap);margin-top:8px}
+[hidden]{display:none!important}
+.bm .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--head);color:#FFFFFF;padding:8px 14px;border-radius:6px;font-size:13px}
+@media (max-width:760px){.bm .cmp,.bm .foot{grid-template-columns:1fr}
+.bm .cmp>div+div,.bm .foot>div+div{border-left:0;border-top:1px solid var(--line)}
+.bm .meter{display:none}}</style>
+<script>
+// 판단: redo = 덱 주장 재검토 필요 · check = 확인 필요 · keep = 덱 유지(차별점 후보) · dec = Pixengo 정책 결정 필요
+var JUDGE = { redo: "재검토 필요", check: "확인 필요", keep: "유지 · 확인", dec: "정책 결정 필요" };
+var SECTIONS = [
+  { key: "C", title: "A. 시장 · 경쟁 — 덱 2~5장 주장 대 대체 서비스", sub: "고객(게스트·호스트)이 Pixengo 대신 고를 수 있는 서비스와 비교합니다. 출처: 경쟁 분석 문서." },
+  { key: "B", title: "B. 운영 정책 — 덱의 빈칸 대 운영툴 벤치마킹", sub: "덱에 값이나 규칙이 없어 벤치마킹을 참고한 곳입니다. 참고 사례일 뿐 Pixengo 정책이 아닙니다. 출처: 벤치마킹 및 운영 근거 문서." }
+];
+var ITEMS = [
+  { id: "C-01", s: "C", title: "사전예약 시장이 비어 있다", judge: "redo", slide: "3장 ①",
+    deck: "\"사전예약 시장이 비어 있다. 카카오T는 실시간 호출이라 도착 전에 확정이 안 된다.\" 며칠 전에 잡아두기가 Pixengo의 구간.",
+    found: ["카카오 k.ride: 외국인 대상 택시 예약(원하는 시간·장소), 중국어·알리페이", "카카오T 예약: 당일~며칠 뒤, 차종별 예약비", "Uber Reserve: 인천공항 픽업 최대 90일 전, 요금 고정", "인천공항 인터내셔널택시: 24시간 전 예약, 외국어 기사"],
+    src: [["k.ride", "https://www.kakaomobility.com/k-ride"], ["카카오T 예약 FAQ", "https://service.kakaomobility.com/cs/faqs/content/?category=178"], ["Uber ICN", "https://www.uber.com/global/en/r/airports/icn"], ["International Taxi", "https://www.intltaxi.co.kr/"]],
+    gap: "사전 '예약'은 이미 있다. 남은 차이는 '며칠 전 기사 확정'과 '지연 대응'일 수 있으나 확인되지 않았다.",
+    checks: ["k.ride·카카오T 예약이 며칠 전에 기사를 실제로 확정하는지, 직전 배차인지", "예약 후 기사를 못 구했을 때 처리(취소·환불·대체)", "예약비와 총 요금", "덱 3장 문구를 '확정 콜 + 지연 대응' 기준으로 고쳐 쓸지"], rel: "경쟁 분석 4장 · 7장 1번" },
+  { id: "C-02", s: "C", title: "클룩 대비 10~27% 저렴", judge: "check", slide: "3장",
+    deck: "클룩 프라이빗 트랜스퍼 대비 10~27% 저렴 (85,430 대 117,700원). 인천→서울 중형 1건 플랫폼 순마진 6,872원.",
+    found: ["Klook 전용 차량: 약 US$41.69부터, 심야(22~08시) 현금 2만 원 추가", "KKday: 심야 할증 없음, 일부 구 1.2만 원 추가", "인터내셔널택시: 구간 정액 약 7만~9.5만 원", "Uber Black 서울행: 약 10만~15만 원"],
+    src: [["Klook", "https://www.klook.com/en-US/activity/3869-incheon-airport-transfer-seoul/"], ["KKday", "https://www.kkday.com/en-us/trans/airport_transfer/airport/icn-incheon-international-airport"], ["인터내셔널택시 가이드", "https://askkoreatravel.com/incheon-airport-international-taxi-essential/"]],
+    gap: "비교 대상 상품·차종·인원이 달라 우위가 유지되는지 알 수 없다. 인터내셔널택시와는 가격대가 겹친다.",
+    checks: ["같은 조건(인천→서울 도심, 중형, 2인·캐리어 2개)의 주간 가격표", "같은 조건의 심야 가격표", "Pixengo 요금에 우선예약요금·대기료가 붙는 경우의 총액", "순마진 6,872원 계산에 PG·알림 비용이 들어갔는지"], rel: "경쟁 분석 7장 3번 · R04 · R07" },
+  { id: "C-03", s: "C", title: "중문 UI 필수", judge: "keep", slide: "4장",
+    deck: "한국어·영어가 불편 → 중문 UI 필수.",
+    found: ["k.ride: 중국어 간체·번체", "DiDi 해외 출행: 중문 화면·중문 채팅·24시간 중문 상담", "高德: 중문 화면·AI 실시간 통역"],
+    src: [["k.ride", "https://www.kakaomobility.com/k-ride"], ["滴滴 海外出行", "https://finance.sina.com.cn/jjxw/2025-01-21/doc-inefutki7985085.shtml"], ["高德 韩国", "https://www.ithome.com/0/856/289.htm"]],
+    gap: "필수 조건은 맞다. 다만 경쟁사도 제공해 차별점은 아니다.",
+    checks: ["덱에서 '중문 UI'를 차별점이 아닌 기본 조건으로 다시 표현할지", "중문 응대 범위(예약·운행 중·분쟁)를 경쟁사와 비교"], rel: "경쟁 분석 4장" },
+  { id: "C-04", s: "C", title: "결제 수단 — AlipayCN·해외카드, 위챗페이는 Phase 2", judge: "check", slide: "4장 · 9장",
+    deck: "게스트 결제는 알리페이(AlipayCN)·해외카드. 위챗페이·Alipay+ 자동결제는 Phase 1.5~2.",
+    found: ["DiDi·高德: 알리페이·위챗 모두 결제", "k.ride: 해외 카드·알리페이·그랩페이"],
+    src: [["滴滴 海外出行", "https://finance.sina.com.cn/jjxw/2025-01-21/doc-inefutki7985085.shtml"], ["高德 韩国", "https://www.ithome.com/0/856/289.htm"]],
+    gap: "중국 앱은 처음부터 위챗페이를 받는다. MVP에 위챗페이가 없는 것이 전환율에 얼마나 영향을 주는지 모른다.",
+    checks: ["타깃 게스트의 알리페이 대 위챗페이 사용 비율", "위챗페이 없이 이탈하는 비율을 파일럿에서 측정할 방법", "Phase 1.5·2 일정을 앞당길 필요가 있는지"], rel: "R08 · 덱 9장" },
+  { id: "C-05", s: "C", title: "중국 안에서의 고객 획득", judge: "check", slide: "5장 ①",
+    deck: "샤오홍슈·더우인 등 현지 채널을 대행사 없이 직접 운영 — 인바운드의 최대 병목인 중국 내 고객 획득을 내부에서 해결.",
+    found: ["携程(Trip.com)·来韩网·8只小猪가 중국인 대상 인천 픽업 상품 판매", "DiDi·高德는 게스트가 이미 가진 앱 — 별도 설치 없이 한국에서 호출"],
+    src: [["携程 接机", "https://vacations.ctrip.com/notes/3477.html"], ["来韩网", "https://www.laihanwang.com/airport/show_13.html"], ["8只小猪", "https://h5.8pig.com/journey/38450"]],
+    gap: "직접 마케팅은 여행 준비 단계의 플랫폼 노출과 경쟁한다. 획득 비용 비교가 없다.",
+    checks: ["샤오홍슈·더우인 직접 획득 비용(건당) 추정", "携程·Klook 등 입점 판매를 병행할지 결정", "DiDi·高德와 사전예약 공급 제휴 가능성(덱에 없는 아이디어)"], rel: "경쟁 분석 6장" },
+  { id: "C-06", s: "C", title: "항공편 지연 대응 — 차별점 후보", judge: "check", slide: "3장 ③ · 8장",
+    deck: "\"공항 장거리는 예측 가능하다.\" 도착편 API 장애가 노쇼 오판정으로 이어지면 안 된다. (지연 시 픽업 시각 조정 규칙은 덱에 없음)",
+    found: ["Limo Anywhere: 항공편 데이터로 픽업 시각 조정", "Blacklane: 동적 픽업 시각 안내", "k.ride·Uber·Klook·KKday: 지연 자동 추적 여부 확인 못 함"],
+    src: [["Limo Anywhere", "https://www.limoanywhere.com/airport-transportation-software/"], ["Blacklane 동적 픽업", "https://partner-help.blacklane.com/en/articles/12157684-dynamic-pickup-time"]],
+    gap: "경쟁 앱이 지연을 따라가지 않는다면 Pixengo의 가장 분명한 약속이 된다. 따라간다면 차별점이 아니다.",
+    checks: ["k.ride·Uber 예약에서 항공편 지연 시 픽업 시각이 바뀌는지", "Klook·KKday 전용 차량의 지연 무료 대기 규정", "Pixengo 지연 재안내 규칙(운영 설계 2장) 결정"], rel: "경쟁 분석 7장 2번 · 운영 설계 2장 · P-05" },
+  { id: "C-07", s: "C", title: "기사 수수료 2% — 공급 경쟁력", judge: "check", slide: "3장 ② · 4장",
+    deck: "수수료 2% (카카오 블루 2~4%) + 우선예약요금·대기료 전액 기사 배분. 확정 콜이라 빈차 회송이 없다.",
+    found: ["경쟁 서비스의 기사 조건은 조사하지 않음", "DiDi-티머니 제휴: 기사 지원·프로모션 계획만 발표"],
+    src: [["Korea Herald — DiDi·티머니", "https://www.koreaherald.com/article/10735469"]],
+    gap: "기사 풀이 미배차 방어의 근본(덱 5장)인데, 경쟁사가 기사에게 주는 조건과 비교한 적이 없다.",
+    checks: ["개인택시 기사 인터뷰 — 카카오·k.ride·인터내셔널택시 예약 콜의 실제 수수료·조건", "공항 예약 콜의 빈차 회송·대기 부담 비교", "2%가 기사 모집에 충분한 동기인지"], rel: "경쟁 분석 7장 6번 · R04 · R06" },
+  { id: "C-08", s: "C", title: "호스트(게스트하우스·호텔) 유통 채널", judge: "keep", slide: "2장 · 4장",
+    deck: "호스트가 손님 대신 예약을 생성하고 돈에 닿지 않는다. 게스트 개인정보를 한 글자도 입력하지 않는다.",
+    found: ["호스트 유통을 내세운 경쟁 서비스는 찾지 못함", "국내 소규모 업체 일부는 호텔 픽업을 하지만 유통 채널로 쓰는지는 확인 못 함"],
+    src: [["서울관광택시", "https://seoultaxitour.com/"], ["taxitour.kr", "https://taxitour.kr/"]],
+    gap: "차별점 후보. 실제로 호스트가 대신 예약할 동기가 있는지는 검증되지 않았다.",
+    checks: ["게스트하우스·중소형 호텔 인터뷰 — 지금 손님 픽업을 어떻게 안내하는지", "호스트에게 주는 이익(수수료 없음이면 동기가 무엇인지)", "기존 업체의 호텔 제휴 여부"], rel: "R02 · R09" },
+  { id: "C-09", s: "C", title: "DiDi·티머니 제휴 — 덱에 없는 위협", judge: "check", slide: "덱에 없음",
+    deck: "(덱에 없음) 덱은 경쟁자로 클룩·여행사 상품·카카오T만 언급.",
+    found: ["2025-01 DiDi 해외 출행에 한국 포함", "2026-05 DiDi·티머니모빌리티 제휴 발표 — DiDi 앱에서 온다택시 실시간 호출, 서울·제주·춘천·경기, 출시일 미정", "2026 노동절 연휴 해외 입국 호출 +67%"],
+    src: [["Korea Herald", "https://www.koreaherald.com/article/10735469"], ["IT之家 — 滴滴 五一", "https://www.ithome.com/0/948/338.htm"]],
+    gap: "실시간 호출이라 사전예약과 구간은 다르지만, 게스트가 '도착해서 DiDi로 부르면 된다'고 생각하면 사전예약 수요가 줄어든다.",
+    checks: ["제휴 서비스 실제 출시 여부", "DiDi 앱에 예약(사전 호출) 기능이 한국에서 되는지", "인천공항 픽업 가능 여부와 요금"], rel: "경쟁 분석 7장 5번" },
+  { id: "C-10", s: "C", title: "인천공항 인터내셔널택시 — 덱에 없는 공식 경쟁자", judge: "check", slide: "덱에 없음",
+    deck: "(덱에 없음)",
+    found: ["서울시 인증, 영·일·중 외국어 시험 통과 기사", "24시간 전 예약, 확인 메일에 차량·기사 정보", "구간 정액 약 7만~9.5만 원"],
+    src: [["International Taxi", "https://www.intltaxi.co.kr/"], ["가이드", "https://askkoreatravel.com/incheon-airport-international-taxi-essential/"]],
+    gap: "공항 공식·정액이라 신뢰도가 높고 가격대가 겹친다.",
+    checks: ["결제 수단(알리페이·위챗 가능 여부)", "항공편 지연 시 처리", "중국 채널(샤오홍슈 등)에서의 노출 정도", "덱 경쟁 비교에 추가할지"], rel: "경쟁 분석 7장 4번" },
+  { id: "B-01", s: "B", title: "무료 대기 시간", judge: "dec", slide: "7장 · 3장",
+    deck: "대기료는 전액 기사 배분. 무료 대기의 시작 기준과 분은 덱에 없음.",
+    found: ["Blacklane: 공항 픽업 60분 대기 포함, 초과 시 기사에게 대기료 보전"],
+    src: [["Blacklane Partner FAQ", "https://partner-help.blacklane.com/en/collections/6252368-partner-faq"]],
+    gap: "시작 기준(실제 착륙 / 픽업 목표)과 분이 없으면 대기료·노쇼를 판정할 수 없다. Blacklane 값은 참고 사례일 뿐이다.",
+    checks: ["시작 기준 결정(실제 착륙 / 게스트 픽업 목표)", "무료 대기 분 결정", "대기 연장 단위·승인자(D-11)"], rel: "D-01 · D-11" },
+  { id: "B-02", s: "B", title: "노쇼 판정과 70/30 배분", judge: "dec", slide: "7장",
+    deck: "NO_SHOW = 예약금 몰취, 배분 70/30.",
+    found: ["Blacklane: 포함 대기 시간이 지난 뒤 게스트가 오지 않으면 파트너가 노쇼 요청 → 플랫폼 확인"],
+    src: [["Blacklane 노쇼 정책", "https://partner-help.blacklane.com/en/articles/8420639-what-is-the-no-show-policy"]],
+    gap: "70/30의 수령 주체(기사/플랫폼), 원 단위 처리, 연락 시도 기준이 덱에 없다.",
+    checks: ["70/30 중 누가 70인지", "연락 시도 횟수·채널·간격", "원 단위 반올림·지급 시점"], rel: "D-02 · D-03" },
+  { id: "B-03", s: "B", title: "지연·조기 도착 시 픽업 시각 재계산", judge: "dec", slide: "8장",
+    deck: "도착편 조회는 공공데이터포털(인천공항공사). 도착편 API 장애가 노쇼 오판정으로 이어지면 안 된다. 재계산 규칙은 없음.",
+    found: ["Limo Anywhere: 항공편 데이터로 픽업 시각 조정, 지연을 배차 계획에 반영", "Blacklane: 동적 픽업 시각 — 제공 문서 사이에 자동/수동 설명 차이"],
+    src: [["Limo Anywhere", "https://www.limoanywhere.com/airport-transportation-software/"], ["Blacklane 동적 픽업", "https://partner-help.blacklane.com/en/articles/12157684-dynamic-pickup-time"]],
+    gap: "유효 도착 → 게스트 픽업 목표 → 기사 도착 목표의 여유 시간 값이 없다.",
+    checks: ["입국 소요 여유 시간 값", "기사 선행 도착 여유 값", "재안내 기준(몇 분 이상 변동 시)", "도착편 API로 며칠 전 편명이 조회되는지(O-11)"], rel: "운영 설계 2장 · O-11" },
+  { id: "B-04", s: "B", title: "미배차 위험 경보 시점", judge: "dec", slide: "5장",
+    deck: "미배차는 사후 수습이 불가능하다 — 게스트는 비행기 안이라 연락이 안 된다. 기사 풀 확보가 유일한 근본 방어책.",
+    found: ["벤치마킹 3곳에서 해당 기준을 찾지 못함", "시안 가정: 도착 T-[3]h", "중국발 인천행 비행 약 1.5~3시간 → T-3h는 출발 직전 또는 기내"],
+    src: [],
+    gap: "지금 기준으로는 끝내 기사를 못 구했을 때 게스트에게 미리 알릴 시간이 없을 수 있다.",
+    checks: ["2단계 경보(출발 전 1차 + 도착 T-3h 2차) 채택 여부", "게스트 출발 시각 확보 방법(예약 입력 / 출발편 조회)", "미배차 확정·환불 시점(D-08a)"], rel: "O-09 · 운영 프로세스 부록 A" },
+  { id: "B-05", s: "B", title: "기사 심사와 서류 관리", judge: "dec", slide: "4장 · 8장",
+    deck: "본인·자격·계좌 3중 인증 후 승인. MVP는 개인택시만. 자격·면허 검증 연동은 P1.",
+    found: ["Blacklane: 회사 서류, 신원 확인, 신원 조회, 면허 갱신, 기기 확인, 차량 적격 기준"],
+    src: [["Blacklane Operational Guidelines", "https://partner-help.blacklane.com/en/articles/8416146-operational-guidelines"]],
+    gap: "서류 만료·갱신 주기, 차량 적격 기준, 부적격 사유 코드와 재신청 조건이 덱에 없다.",
+    checks: ["필수 서류 목록과 만료 관리 주기", "차량 적격 기준(연식·차종·좌석)", "반려 사유 코드·재신청 조건·배정 정지 기준"], rel: "D-12 · R10" },
+  { id: "B-06", s: "B", title: "배정 추천 기준", judge: "check", slide: "9장 · 10장",
+    deck: "Phase 0 강제배차. 실시간 배차·자동 매칭은 Phase 4 — 과설계 금지.",
+    found: ["Onfleet: 수동 배정 + 자동 배정 2종(가장 가까운 기사 / 최단 총경로)", "Limo Anywhere: 기사·차량 배정, 운행 상태 모니터링"],
+    src: [["Onfleet 자동 배정", "https://support.onfleet.com/hc/en-us/articles/360023669852-Auto-Assignment"]],
+    gap: "자동 배정은 덱 원칙상 범위 밖. 다만 강제배차 때 참고할 추천 순서 기준(대기 위치·오늘 배정 수·수락률)은 정해야 한다.",
+    checks: ["추천 순서 기준 결정", "추천이 참고용이고 자동 배정이 아님을 유지할지"], rel: "Settings 화면 · P-03" },
+  { id: "B-07", s: "B", title: "제휴 운영사로 콜 넘기기", judge: "check", slide: "덱에 없음",
+    deck: "(덱에 없음) 덱은 MVP 개인택시만, 기사 풀 확보가 근본 방어책.",
+    found: ["Limo Anywhere: 제휴 운영사와 운행 연계"],
+    src: [["Limo Anywhere", "https://www.limoanywhere.com/airport-transportation-software/"]],
+    gap: "벤치마킹 아이디어. 덱의 방향(자체 기사 풀)과 다르다.",
+    checks: ["채택 여부 결정", "채택 시 법인택시·제휴 기사 참여가 MVP 범위를 바꾸는지"], rel: "Partners 화면(벤치마킹 아이디어)" }
+];
+var STATES = [["open", "아직 확인 안 함"], ["doing", "확인 중"], ["done-keep", "확인됨 — 덱 유지"], ["done-change", "확인됨 — 덱 수정 필요"], ["done-decided", "확인됨 — 정책 결정 완료"]];
+var KEY = "pixengo-deck-check-v1";
+var store = {};
+try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { store = {}; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function st(id) { return store[id] || (store[id] = { state: "open", checks: [], memo: "" }); }
+
+function render() {
+  var html = "";
+  SECTIONS.forEach(function (sec) {
+    html += '<h2>' + esc(sec.title) + '</h2><p class="sub">' + esc(sec.sub) + '</p>';
+    ITEMS.filter(function (it) { return it.s === sec.key; }).forEach(function (it) {
+      var s = st(it.id);
+      html += '<article class="item" id="' + it.id + '" data-judge="' + it.judge + '" data-state="' + s.state + '">' +
+        '<div class="ih"><span class="id">' + it.id + '</span><h3>' + esc(it.title) + '</h3><span class="tag ' + it.judge + '">' + JUDGE[it.judge] + '</span><span class="grow"></span><span class="tag keep">덱 ' + esc(it.slide) + '</span></div>' +
+        '<div class="cmp"><div><h4>온보딩 덱</h4><p>' + esc(it.deck) + '</p></div>' +
+        '<div><h4>조사 결과</h4><ul>' + it.found.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join("") + '</ul>' +
+        (it.src.length ? '<div class="src">출처: ' + it.src.map(function (x) { return '<a href="' + esc(x[1]) + '" target="_blank" rel="noopener">' + esc(x[0]) + '</a>'; }).join(" · ") + '</div>' : "") + '</div></div>' +
+        '<div class="gap"><b>차이 · 영향</b>' + esc(it.gap) + '</div>' +
+        '<div class="foot"><div><h4>확인할 것</h4>' + it.checks.map(function (c, i) {
+          return '<label class="ck"><input type="checkbox" data-ck="' + it.id + '" data-i="' + i + '"' + (s.checks.indexOf(i) >= 0 ? " checked" : "") + '><span>' + esc(c) + '</span></label>';
+        }).join("") + '<div class="rel">관련: ' + esc(it.rel) + '</div></div>' +
+        '<div><h4><label for="s-' + it.id + '">확인 결과</label></h4><select id="s-' + it.id + '" data-st="' + it.id + '">' +
+        STATES.map(function (o) { return '<option value="' + o[0] + '"' + (s.state === o[0] ? " selected" : "") + '>' + o[1] + '</option>'; }).join("") +
+        '</select><textarea data-memo="' + it.id + '" aria-label="' + it.id + ' 메모" placeholder="확인한 사람 · 날짜 · 근거 링크 · 결론">' + esc(s.memo) + '</textarea></div></div></article>';
+    });
+  });
+  document.getElementById("list").innerHTML = html;
+  progress(); applyFilter();
+}
+
+function progress() {
+  var done = ITEMS.filter(function (it) { return st(it.id).state.indexOf("done") === 0; }).length;
+  document.querySelector("[data-done]").textContent = done;
+  document.querySelector("[data-total]").textContent = ITEMS.length;
+  document.querySelector("[data-meter]").style.width = Math.round(done / ITEMS.length * 100) + "%";
+}
+
+var filter = "all";
+function applyFilter() {
+  document.querySelectorAll(".item").forEach(function (el) {
+    var show = filter === "all" || (filter === "open" ? el.getAttribute("data-state") === "open" : el.getAttribute("data-judge") === filter);
+    el.hidden = !show;
+  });
+  document.querySelectorAll("#list h2").forEach(function (h) {
+    var n = h.nextElementSibling ? h.nextElementSibling.nextElementSibling : null, any = false;
+    while (n && n.classList.contains("item")) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+    h.hidden = !any; h.nextElementSibling.hidden = !any;
+  });
+}
+
+document.addEventListener("change", function (e) {
+  var t = e.target;
+  if (t.matches("[data-ck]")) {
+    var s = st(t.getAttribute("data-ck")), i = +t.getAttribute("data-i");
+    s.checks = s.checks.filter(function (x) { return x !== i; }); if (t.checked) s.checks.push(i);
+    save();
+  } else if (t.matches("[data-st]")) {
+    var id = t.getAttribute("data-st"); st(id).state = t.value; save();
+    document.getElementById(id).setAttribute("data-state", t.value); progress(); applyFilter();
+  }
+});
+document.addEventListener("input", function (e) {
+  if (e.target.matches("[data-memo]")) { st(e.target.getAttribute("data-memo")).memo = e.target.value; save(); }
+});
+document.querySelectorAll("[data-f]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    filter = b.getAttribute("data-f");
+    document.querySelectorAll("[data-f]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    applyFilter();
+  });
+});
+
+function toast(msg) {
+  var d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = msg;
+  document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2200);
+}
+document.querySelector("[data-export]").addEventListener("click", function () {
+  var label = {}; STATES.forEach(function (o) { label[o[0]] = o[1]; });
+  var cell = function (x) { return String(x).replace(/\|/g, "/").replace(/\n+/g, " "); };
+  var lines = ["| ID | 항목 | 판단 | 확인 결과 | 확인한 것 | 메모 |", "|---|---|---|---|---|---|"];
+  ITEMS.forEach(function (it) {
+    var s = st(it.id);
+    lines.push("| " + it.id + " | " + cell(it.title) + " | " + JUDGE[it.judge] + " | " + label[s.state] + " | " + s.checks.length + "/" + it.checks.length + " | " + cell(s.memo) + " |");
+  });
+  var md = "## 벤치마킹 · 경쟁 분석 점검 결과 (" + new Date().toISOString().slice(0, 10) + ")\n\n" + lines.join("\n") + "\n";
+  var done = function () { toast("Markdown을 복사했습니다"); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(md).then(done, function () { fallback(md); });
+  else fallback(md);
+  function fallback(t) { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) { toast("복사하지 못했습니다"); } ta.remove(); }
+});
+document.querySelector("[data-reset]").addEventListener("click", function () {
+  if (!confirm("이 브라우저에 저장된 체크·결과·메모를 모두 지울까요?")) return;
+  store = {}; save(); render();
+});
+render();
+</script>
+</body>
+</html>
