@@ -42,7 +42,8 @@ td.sl{white-space:nowrap;color:var(--cap)}
 .st.server{background:#FFFFFF;box-shadow:inset 0 0 0 1px #D9D4CE}
 .st.none{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--risk);color:var(--risk)}
 .dec{margin:10px 0 0;font-size:13px}
-.stage{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.zoom{font-size:13px;min-width:44px;text-align:center;font-weight:600}
+.stage{position:relative;overflow:hidden;scroll-margin-top:8px;margin:0 auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
 .stage.actual{overflow:auto}
 .stage iframe{display:block;border:0;width:1440px;transform-origin:0 0;background:#FFFFFF}
 .pn{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:13px}
@@ -68,8 +69,11 @@ td.sl{white-space:nowrap;color:var(--cap)}
 </div>
 </details>
 <div class="bar" role="group" aria-label="시안 보기 크기">
-<button class="btn" type="button" data-size="fit" aria-pressed="true">창에 맞춤</button>
-<button class="btn" type="button" data-size="actual" aria-pressed="false">실제 크기 (1440px)</button>
+<button class="btn" type="button" data-zoom-set="width" aria-pressed="true">폭 맞춤</button>
+<button class="btn" type="button" data-zoom-step="-0.1" aria-label="10% 축소">−</button>
+<span class="zoom" data-zoom aria-live="polite">100%</span>
+<button class="btn" type="button" data-zoom-step="0.1" aria-label="10% 확대">+</button>
+<button class="btn" type="button" data-zoom-set="1" aria-pressed="false">100%</button>
 <span class="grow"></span>
 <a class="btn" href="screens/States.html" target="_blank" rel="noopener">새 창에서 시안만 보기</a>
 </div>
@@ -78,19 +82,29 @@ td.sl{white-space:nowrap;color:var(--cap)}
 </main>
 </div>
 <script>
+// 보기 크기: 'width' = 폭 맞춤(기본, 넓은 화면에서는 확대) · 숫자 = 고정 배율(0.3~2.0). −/+ 는 10%씩.
 (function () {
-  var stage = document.querySelector('.stage'), frame = stage.querySelector('iframe');
-  var H = +frame.getAttribute('height'), mode = 'fit';
-  try { mode = localStorage.getItem('pixengo-size') || 'fit'; } catch (e) {}
+  var stage = document.querySelector('.stage'), frame = stage.querySelector('iframe'), label = document.querySelector('[data-zoom]');
+  var H = +frame.getAttribute('height'), mode = 'width';
+  try { mode = localStorage.getItem('pixengo-zoom') || 'width'; } catch (e) {}
+  function fitW() { return Math.min(stage.clientWidth / 1440, 2); }
+  function current() { return mode === 'width' ? fitW() : Math.max(0.3, Math.min(2, +mode || 1)); }
   function apply() {
-    var s = mode === 'actual' ? 1 : Math.min(1, stage.clientWidth / 1440);
+    var s = current();
     frame.style.transform = 'scale(' + s + ')';
     stage.style.height = Math.ceil(H * s) + 'px';
-    stage.classList.toggle('actual', mode === 'actual');
-    document.querySelectorAll('[data-size]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-size') === mode ? 'true' : 'false'); });
+    stage.classList.toggle('actual', s * 1440 > stage.clientWidth + 1);
+    label.textContent = Math.round(s * 100) + '%';
+    document.querySelector('[data-zoom-set="width"]').setAttribute('aria-pressed', mode === 'width' ? 'true' : 'false');
+    document.querySelector('[data-zoom-set="1"]').setAttribute('aria-pressed', mode !== 'width' && Math.abs(current() - 1) < 0.001 ? 'true' : 'false');
   }
-  document.querySelectorAll('[data-size]').forEach(function (b) {
-    b.addEventListener('click', function () { mode = b.getAttribute('data-size'); try { localStorage.setItem('pixengo-size', mode); } catch (e) {} apply(); });
+  function set(m) { mode = String(m); try { localStorage.setItem('pixengo-zoom', mode); } catch (e) {} apply(); }
+  document.querySelectorAll('[data-zoom-set]').forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-zoom-set')); }); });
+  document.querySelectorAll('[data-zoom-step]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = Math.round((current() + +b.getAttribute('data-zoom-step')) * 10) / 10;
+      set(Math.max(0.3, Math.min(2, s)));
+    });
   });
   window.addEventListener('resize', apply); apply();
 })();
